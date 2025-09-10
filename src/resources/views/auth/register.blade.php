@@ -18,7 +18,7 @@
   <main>
     <div class="content">
       <h2 class="content__title">会員登録</h2>
-      <form class="form" action="{{ route('register') }}" method="POST" >
+      <form class="form" action="{{ route('register.store') }}" method="POST">
         @csrf
         <div class="form__item">
           <label class="form__item-label">ユーザー名</label>
@@ -43,7 +43,9 @@
           <input class="form__item-input" type="password" name="password">
           <div class="error">
             @error('password')
+            @if ($message !== 'パスワードと一致しません')
             {{ $message }}
+            @endif
             @enderror
           </div>
         </div>
@@ -51,14 +53,15 @@
           <label class="form__item-label">確認用パスワード</label>
           <input class="form__item-input" type="password" name="password_confirmation">
           <div class="error">
-            @error('password_confirmation')
+            @error('password')
+            @if ($message === 'パスワードと一致しません')
             {{ $message }}
+            @endif
             @enderror
           </div>
-        </div>
-        <div class="form__button">
-          <button class="form__button-submit" type="submit">登録する</button>
-        </div>
+          <div class="form__button">
+            <button class="form__button-submit" type="submit">登録する</button>
+          </div>
       </form>
       <div class="content__link">
         <a class="content__link-text" href="{{ route('login') }}">ログインはこちら</a>
