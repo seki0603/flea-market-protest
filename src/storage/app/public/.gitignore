@@ -1,2 +1,8 @@
 *
 !.gitignore
+!avatars/
+!avatars/*.png
+!avatars/*.jpg
+!products/
+!products/*.jpg
+!products/*.png

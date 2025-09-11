@@ -55,4 +55,16 @@ class Product extends Model
     {
         return $this->hasOne(Order::class);
     }
+
+    // アクセサ
+    public function getConditionLabelAttribute()
+    {
+        $map = [
+            0 => '良好',
+            1 => '目立った傷や汚れなし',
+            2 => 'やや傷や汚れあり',
+            4 => '状態が悪い',
+        ];
+        return $map[$this->condition] ?? '';
+    }
 }
