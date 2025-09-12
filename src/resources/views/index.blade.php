@@ -1,32 +1,37 @@
-<!DOCTYPE html>
-<html lang="ja">
+@extends('layouts.app')
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Flea Market</title>
-</head>
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/index.css') }}">
+@endsection
 
-<body>
-  <header class="header">
-    <div class="header__inner">
-      <div class="header__logo">
-        <img src="" alt="COACHTECH">
-      </div>
-      <form class="header__button" action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button class="header__button-link" type="submit">logout</button>
-      </form>
+@section('content')
+{{-- タブ切り替え --}}
+<div class="tab__wrapper">
+    <div class="tab">
+        <a href="{{ url('/?tab=recommend') }}"
+            class="tab__link {{ request('tab') !== 'mylist' ? 'tab__link--active' : '' }}">
+            おすすめ
+        </a>
+        <a href="{{ url('/?tab=mylist') }}"
+            class="tab__link {{ request('tab') === 'mylist' ? 'tab__link--active' : '' }}">
+            マイリスト
+        </a>
     </div>
-  </header>
+</div>
 
-  <main>
-    <div>トップページ</div>
-    <div>
-      {{ request('tab') === 'mylist' ? 'マイリスト' : '商品一覧' }}
+{{-- 商品一覧 --}}
+<div class="products">
+    @foreach($products as $product)
+    <div class="product">
+        <a href="{{ route('item.show', $product->id) }}">
+            <img class="product__img" src="{{ asset('storage/'.$product->image_path) }}" alt="商品画像">
+        </a>
+            <p class="product__name">{{ $product->name }}</p>
+            {{-- Sold判定 --}}
+            @if($product->buyer_id || $product->sold_at)
+            <span class="sold-label">Sold</span>
+            @endif
     </div>
-  </main>
-</body>
-
-</html>
+    @endforeach
+</div>
+@endsection

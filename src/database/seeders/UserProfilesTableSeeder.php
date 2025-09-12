@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use App\Models\UserProfile;
 
 class UserProfilesTableSeeder extends Seeder
@@ -14,6 +15,8 @@ class UserProfilesTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('user_profiles')->truncate();
+
         UserProfile::create([
             'user_id' => 1,
             'avatar_path' => 'avatars/user1.png',

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 
 class UsersTableSeeder extends Seeder
@@ -15,6 +16,11 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('user_profiles')->truncate();
+        DB::table('users')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         User::create([
             'id' => 1,
             'name' => '山田太郎',

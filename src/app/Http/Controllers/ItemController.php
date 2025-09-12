@@ -10,11 +10,19 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->tab === 'mylist') {
-            $products = Auth::user()->products;
+        if ($request->query('tab') === 'mylist') {
+            $products = Product::whereHas('likes', function ($q) {
+                $q->where('user_id', Auth::id());
+            })->paginate(20);
         } else {
-            $products = Product::all();
+            $products = Product::where('seller_id', '!=', Auth::id())->paginate(20);
         }
         return view('index', compact('products'));
+    }
+
+    public function show($id)
+    {
+        $product = Product::with(['seller', 'buyer', 'categories', 'comments'])->findOrFail($id);
+        return view('item.show', compact('product'));
     }
 }
