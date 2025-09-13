@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LikeController;
+use App\Models\Like;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +30,7 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
   Route::get('/mypage', [ProfileController::class, 'index'])->name('profile.index');
   Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+
+  Route::post('/products/{product}/like', [LikeController::class, 'store'])->name('products.like');
+  Route::delete('/products/{product}/like', [LikeController::class, 'destroy'])->name('products.unlike');
 });

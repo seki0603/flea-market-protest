@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Product;
+use App\Models\Category;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,5 +21,13 @@ class DatabaseSeeder extends Seeder
             CategoriesTableSeeder::class,
             ProductsTableSeeder::class,
         ]);
+
+        $products = Product::all();
+        $categories = Category::all();
+
+        foreach ($products as $product) {
+            $randomCategories = $categories->random(rand(1, 3))->pluck('id')->toArray();
+            $product->categories()->syncWithoutDetaching($randomCategories);
+        }
     }
 }

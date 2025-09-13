@@ -26,12 +26,22 @@
         <div class="item__icons">
             <div class="item__icons-inner">
                 @auth
-                <form action="" method="POST">
+                @if ($product->isLikedBy(Auth::user()))
+                <form action="{{ route('products.unlike', $product) }}" method="POST">
+                    @csrf
+                    @method('delete')
+                    <button class="like-btn" type="submit">
+                        <img class="like-btn__img" src="{{ asset('images/star-filled.png') }}" alt="いいね">
+                    </button>
+                </form>
+                @else
+                <form action="{{ route('products.like', $product) }}" method="POST">
                     @csrf
                     <button class="like-btn" type="submit">
                         <img class="like-btn__img" src="{{ asset('images/star.png') }}" alt="いいね">
                     </button>
                 </form>
+                @endif
                 @else
                 <a class="like-btn" href="{{ route('login') }}">
                     <img class="like-btn__img" src="{{ asset('images/star.png') }}" alt="コメント">
@@ -52,7 +62,7 @@
                     <img class="comment-btn__img" src="{{ asset('images/speechbuble.png') }}" alt="コメント">
                 </a>
                 @endauth
-                <p class="comment-count">{{ $product->likes->count() }}</p>
+                <p class="comment-count">{{ $product->comments->count() }}</p>
             </div>
         </div>
 
@@ -72,37 +82,41 @@
         </div>
 
         {{-- 商品カテゴリ --}}
-        <div class="item__section">
-            <h3 class="item__section-ttl">商品の情報</h3>
-            <ul class="item__info-list">
+        <h3 class="item__section-ttl">商品の情報</h3>
+        <div class="item__category-wrap">
+            <p class="item__category-ttl">カテゴリ</p>
+            <ul class="item__category-list">
                 @foreach($product->categories as $category)
-                <li>{{ $category->name }}</li>
+                <li class="item__category">{{ $category->name }}</li>
                 @endforeach
-                <li>状態：{{ $product->condition }}</li>
             </ul>
+        </div>
+        <div class="item__status-wrap">
+            <p class="item__status-ttl">商品の状態</p>
+            <p class="item__status">{{ $product->condition_label }}</p>
         </div>
 
         {{-- コメント欄 --}}
-        <div class="item__section">
-            <h3 class="item__section-ttl">コメント ({{ $product->comments->count() }})</h3>
+        <h3 class="item__section-ttl--gray">コメント ({{ $product->comments->count() }})</h3>
 
-            @foreach($product->comments as $comment)
-            <div class="item__comment">
-                <p class="item__comment-user">{{ $comment->user->name }}</p>
-                <p class="item__comment-text">{{ $comment->content }}</p>
-            </div>
-            @endforeach
-
-            @auth
-            <form class="item__comment-form" action="" method="POST">
-                @csrf
-                <textarea class="item__comment-input" name="content" placeholder="商品へのコメント"></textarea>
-                <button class="item__comment-btn" type="submit">コメントを送信する</button>
-            </form>
-            @else
-            <a class="item__comment-btn" href="">ログインしてコメントする</a>
-            @endauth
+        {{-- @foreach($product->comments as $comment) --}}
+        <div class="item__comment">
+            <img class="item__comment-img" src="" alt="">
+            <p class="item__comment-user">ユーザー名</p>
         </div>
+        <p class="item__comment-text">コメント内容</p>
+        {{-- @endforeach --}}
+
+        <p class="item__comment-ttl">商品へのコメント</p>
+        <form class="item__comment-form" action="" method="POST">
+            @csrf
+            <textarea class="item__comment-input" name="content"></textarea>
+            @auth
+            <button class="item__comment-btn" type="submit">コメントを送信する</button>
+            @else
+            <a class="item__comment-btn" href="">コメントを送信する</a>
+            @endauth
+        </form>
     </div>
 </div>
 @endsection
