@@ -7,11 +7,12 @@ use App\Models\Product;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
-class LikeFeatureTest extends TestCase
+class LikeTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function testStoreLike()
+    /** @test */
+    public function いいねした商品として登録する()
     {
         $this->seed();
 
@@ -28,7 +29,8 @@ class LikeFeatureTest extends TestCase
         $this->assertEquals(1, $product->refresh()->likes()->count());
     }
 
-    public function testChangeIcon()
+    /** @test */
+    public function 追加済みのアイコンは色が変化する()
     {
         $this->seed();
 
@@ -41,7 +43,8 @@ class LikeFeatureTest extends TestCase
         $response->assertSee('star-filled.png');
     }
 
-    public function testDestroyLike()
+    /** @test */
+    public function いいねを解除する()
     {
         $this->seed();
 

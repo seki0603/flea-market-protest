@@ -49,7 +49,7 @@
 
 .like-btn,
 .comment-btn {
-    display: flex;              /* 中央寄せ */
+    display: flex;
     align-items: center;
     justify-content: center;
     width: 40px;
@@ -57,9 +57,9 @@
     background: none;
     border: none;
     padding: 0;
-    text-decoration: none;      /* a タグの下線消し */
+    text-decoration: none;
     cursor: pointer;
-    box-sizing: border-box;     /* paddingやborder含めて40pxに収める */
+    box-sizing: border-box;
 }
 
 .like-btn__img,
@@ -206,6 +206,18 @@
     font-size: 20px;
     padding: 10px;
     margin-bottom: 10px;
+}
+
+.error {
+    font-size: 20px;
+    color: #FF5555;
+    font-weight: bold;
+}
+
+.success {
+    font-size: 20px;
+    color: aqua;
+    font-weight: bold;
 }
 
 .item__comment-btn {

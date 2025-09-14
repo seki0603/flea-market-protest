@@ -13,7 +13,7 @@ class ProductComment extends Model
 
     protected $fillable = [
         'user_id',
-        'protect_id',
+        'product_id',
         'body',
         'created_at'
     ];

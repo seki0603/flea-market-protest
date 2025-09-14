@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/item.css') }}">
+<link rel="stylesheet" href="{{ asset('css/show.css') }}">
 @endsection
 
 @section('title', '商品詳細')
@@ -44,7 +44,7 @@
                 @endif
                 @else
                 <a class="like-btn" href="{{ route('login') }}">
-                    <img class="like-btn__img" src="{{ asset('images/star.png') }}" alt="コメント">
+                    <img class="like-btn__img" src="{{ asset('images/star.png') }}" alt="いいね">
                 </a>
                 @endauth
                 <p class="like-count">{{ $product->likes->count() }}</p>
@@ -54,7 +54,7 @@
                 <form action="" method="POST">
                     @csrf
                     <button class="comment-btn" type="submit">
-                        <img class="comment-btn__img" src="{{ asset('images/speechbuble.png') }}" alt="いいね">
+                        <img class="comment-btn__img" src="{{ asset('images/speechbuble.png') }}" alt="コメント">
                     </button>
                 </form>
                 @else
@@ -99,24 +99,44 @@
         {{-- コメント欄 --}}
         <h3 class="item__section-ttl--gray">コメント ({{ $product->comments->count() }})</h3>
 
-        {{-- @foreach($product->comments as $comment) --}}
+        @foreach($product->comments as $comment)
         <div class="item__comment">
             <img class="item__comment-img" src="" alt="">
-            <p class="item__comment-user">ユーザー名</p>
+            <p class="item__comment-user">{{ $comment->user->name}}</p>
         </div>
-        <p class="item__comment-text">コメント内容</p>
-        {{-- @endforeach --}}
+        <p class="item__comment-text">{{ $comment->body}}</p>
+        @endforeach
 
         <p class="item__comment-ttl">商品へのコメント</p>
-        <form class="item__comment-form" action="" method="POST">
+        @auth
+        <form id="comment-form" class="item__comment-form" action="{{ route('products.comments.store', $product->id) }}" method="POST">
             @csrf
-            <textarea class="item__comment-input" name="content"></textarea>
-            @auth
+            <textarea class="item__comment-input" name="body">
+                {{ old('body') }}
+            </textarea>
+            @error('body')
+            <p class="error">{{ $message }}</p>
+            @enderror
+            @if (session('message'))
+                <p class="success">{{ session('message') }}</p>
+            @endif
             <button class="item__comment-btn" type="submit">コメントを送信する</button>
             @else
-            <a class="item__comment-btn" href="">コメントを送信する</a>
+            <a class="item__comment-btn" href="{{ route('login') }}">コメントを送信する</a>
             @endauth
         </form>
+
+        {{-- エラー時画面スクロール --}}
+        @if ($errors->any())
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                    const el = document.getElementById('comment-form');
+                    if (el) {
+                        el.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+        </script>
+        @endif
     </div>
 </div>
 @endsection

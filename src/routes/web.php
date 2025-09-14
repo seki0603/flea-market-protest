@@ -5,7 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LikeController;
-use App\Models\Like;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +33,6 @@ Route::middleware('auth')->group(function () {
 
   Route::post('/products/{product}/like', [LikeController::class, 'store'])->name('products.like');
   Route::delete('/products/{product}/like', [LikeController::class, 'destroy'])->name('products.unlike');
+
+  Route::post('/products/{product}/comments', [CommentController::class, 'store'])->name('products.comments.store');
 });

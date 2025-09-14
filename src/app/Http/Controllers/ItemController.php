@@ -22,7 +22,7 @@ class ItemController extends Controller
 
     public function show($id)
     {
-        $product = Product::with(['seller', 'buyer', 'categories', 'comments'])->findOrFail($id);
+        $product = Product::with(['seller', 'buyer', 'categories', 'comments', 'comments.user'])->findOrFail($id);
         return view('item.show', compact('product'));
     }
 }
