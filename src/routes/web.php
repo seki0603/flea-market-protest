@@ -6,6 +6,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\SellController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +36,6 @@ Route::middleware('auth')->group(function () {
   Route::delete('/products/{product}/like', [LikeController::class, 'destroy'])->name('products.unlike');
 
   Route::post('/products/{product}/comments', [CommentController::class, 'store'])->name('products.comments.store');
+
+  Route::get('/sell', [SellController::class, 'index'])->name('sell.index');
 });

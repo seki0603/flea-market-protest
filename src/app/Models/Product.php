@@ -68,7 +68,7 @@ class Product extends Model
             0 => '良好',
             1 => '目立った傷や汚れなし',
             2 => 'やや傷や汚れあり',
-            4 => '状態が悪い',
+            3 => '状態が悪い',
         ];
         return $map[$this->condition] ?? '';
     }

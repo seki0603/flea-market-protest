@@ -49,6 +49,7 @@
                 @endauth
                 <p class="like-count">{{ $product->likes->count() }}</p>
             </div>
+            {{-- コメント --}}
             <div class="item__icons-inner">
                 @auth
                 <form action="" method="POST">
