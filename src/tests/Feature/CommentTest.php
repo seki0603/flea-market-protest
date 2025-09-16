@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use App\Models\Product;
-use App\Models\ProductComment;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -50,7 +49,7 @@ class CommentTest extends TestCase
     }
 
     /** @test */
-    public function コメントが入力されていない場合はバリデーションメッセージ()
+    public function コメントが未入力の場合はバリデーションエラー()
     {
         $this->seed();
 

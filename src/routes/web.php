@@ -38,4 +38,5 @@ Route::middleware('auth')->group(function () {
   Route::post('/products/{product}/comments', [CommentController::class, 'store'])->name('products.comments.store');
 
   Route::get('/sell', [SellController::class, 'index'])->name('sell.index');
+  Route::post('/sell', [SellController::class, 'store'])->name('sell.store');
 });

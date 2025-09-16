@@ -110,19 +110,19 @@
 
         <p class="item__comment-ttl">商品へのコメント</p>
         @auth
-        <form id="comment-form" class="item__comment-form" action="{{ route('products.comments.store', $product->id) }}" method="POST">
+        <form id="comment-form" class="item__comment-form" action="{{ route('products.comments.store', $product->id) }}"
+            method="POST">
             @csrf
-            <textarea class="item__comment-input" name="body">
-                {{ old('body') }}
-            </textarea>
+            <textarea class="item__comment-input" name="body">{{ old('body') }}</textarea>
             @error('body')
             <p class="error">{{ $message }}</p>
             @enderror
             @if (session('message'))
-                <p class="success">{{ session('message') }}</p>
+            <p class="success">{{ session('message') }}</p>
             @endif
             <button class="item__comment-btn" type="submit">コメントを送信する</button>
             @else
+            <textarea class="item__comment-input" name="body">{{ old('body') }}</textarea>
             <a class="item__comment-btn" href="{{ route('login') }}">コメントを送信する</a>
             @endauth
         </form>

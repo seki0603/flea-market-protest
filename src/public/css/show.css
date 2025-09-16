@@ -205,6 +205,10 @@
     border-radius: 3px;
     font-size: 20px;
     padding: 10px;
+    resize: vertical;
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.5;
     margin-bottom: 10px;
 }
 
