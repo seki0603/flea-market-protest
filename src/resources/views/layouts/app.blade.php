@@ -33,7 +33,7 @@
                     @csrf
                     <button class="header__button-logout" type="submit">ログアウト</button>
                 </form>
-                <a class="header__link-mypage" href="">マイページ</a>
+                <a class="header__link-mypage" href="{{ route('profile.index') }}">マイページ</a>
                 <a class="header__link-seller" href="{{ route('sell.index') }}">出品</a>
                 @endauth
 

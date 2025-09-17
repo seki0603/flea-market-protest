@@ -1,0 +1,97 @@
+.form__wrapper {
+    max-width: 1400px;
+    margin: 50px auto;
+}
+
+.form__ttl {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+
+.form__avatar {
+    display: flex;
+    align-items: center;
+    margin: 50px 0;
+}
+
+.form__avatar-preview {
+    width: 150px;
+    height: 150px;
+    background: #D9D9D9;
+    border-radius: 50%;
+    margin-right: 50px;
+}
+
+.form__avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+.form__avatar-label {
+    display: inline-block;
+    text-align: center;
+    width: 180px;
+    height: 50px;
+    border: 2px solid #FF5555;
+    border-radius: 10px;
+    color: #FF5555;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.form__avatar-input {
+    display: none;
+}
+
+.form {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.form__name-ttl, .form__post-ttl,
+.form__address-ttl, .form__building-ttl {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.form__name, .form__post,
+.form__address, .form__building {
+    width: 100%;
+    height: 55px;
+    border: 1px solid #5F5F5F;
+    border-radius: 6px;
+    color: #5F5F5F;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.form__name, .form__post,
+.form__address {
+    margin-bottom: 50px;
+}
+
+.form__building {
+    margin-bottom: 80px;
+}
+
+.form__btn {
+    display: block;
+    width: 100%;
+    height: 60px;
+    color: #fff;
+    font-size: 26px;
+    font-weight: bold;
+    background: #FF5555;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}

@@ -3,18 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('mypage.index');
+        $user = auth()->user();
+        $tab = $request->get('tab', 'sell');
+        $sellProducts = $user->products()->latest()->get();
+        $buyProducts = $user->buyProducts()->latest()->get();
+
+        return view('mypage.index', compact('user', 'sellProducts', 'buyProducts', 'tab'));
     }
 
     public function edit()
     {
-        return view('mypage.profile');
+        $user = auth()->user()->load('profile');
+
+        return view('mypage.profile', compact('user'));
     }
 
 }
