@@ -3,17 +3,31 @@
     margin: 50px auto;
 }
 
+.success {
+    font-size: 26px;
+    color: aqua;
+    font-weight: bold;
+    text-align: center;
+}
+
 .form__ttl {
     text-align: center;
     font-size: 36px;
     font-weight: bold;
 }
 
+.form {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.form__avatar-wrapper {
+    margin: 50px 0;
+}
 
 .form__avatar {
     display: flex;
     align-items: center;
-    margin: 50px 0;
 }
 
 .form__avatar-preview {
@@ -50,9 +64,11 @@
     display: none;
 }
 
-.form {
-    width: 50%;
-    margin: 0 auto;
+.error {
+    font-size: 20px;
+    color: #FF5555;
+    font-weight: bold;
+    padding: 10px 0;
 }
 
 .form__name-ttl, .form__post-ttl,
@@ -74,8 +90,8 @@
     padding: 10px;
 }
 
-.form__name, .form__post,
-.form__address {
+.form__name-wrapper, .form__post-wrapper,
+.form__address-wrapper {
     margin-bottom: 50px;
 }
 

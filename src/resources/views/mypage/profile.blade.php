@@ -6,32 +6,65 @@
 
 @section('content')
 <div class="form__wrapper">
+    @if (session('message'))
+    <p class="success">{{ session('message') }}</p>
+    @endif
     <h2 class="form__ttl">プロフィール設定</h2>
-    <form class="form" action="" method="" enctype="multipart/form-data">
+    <form class="form" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('patch')
 
-        <div class="form__avatar">
-            <div class="form__avatar-preview">
-                @if($user->profile?->avatar_path)
-                <img class="form__avatar-img" id="avatarPreview"
-                    src="{{ asset('storage/' . $user->profile->avatar_path) }}" alt="プロフィール画像">
-                @else
-                <img class="form__avatar-img" id="avatarPreview" style="display:none;">
-                @endif
+        <div class="form__avatar-wrapper">
+            <div class="form__avatar">
+                <div class="form__avatar-preview">
+                    @if($user->profile?->avatar_path)
+                    <img class="form__avatar-img" id="avatarPreview"
+                        src="{{ asset('storage/' . $user->profile->avatar_path) }}" alt="プロフィール画像">
+                    @else
+                    <img class="form__avatar-img" id="avatarPreview" style="display:none;">
+                    @endif
+                </div>
+                <label class="form__avatar-label">
+                    画像を選択する
+                    <input class="form__avatar-input" id="avatarInput" type="file" name="avatar" accept="image/*">
+                </label>
             </div>
-            <label class="form__avatar-label">
-                画像を選択する
-                <input class="form__avatar-input" id="avatarInput" type="file" name="avatar" accept="image/*">
-            </label>
+            <div class="error">
+                @error('avatar')
+                {{ $message }}
+                @enderror
+            </div>
         </div>
 
-        <p class="form__name-ttl">ユーザー名</p>
-        <input class="form__name" type="text" name="name" value="{{ old('name', $user->name) }}">
-        <p class="form__post-ttl">郵便番号</p>
-        <input class="form__post" type="text" name="postal_code"
-            value="{{ old('postal_code', $user->profile->postal_code ?? '') }}">
-        <p class="form__address-ttl">住所</p>
-        <input class="form__address" type="text" name="address"
-            value="{{ old('address', $user->profile->address ?? '') }}">
+        <div class="form__name-wrapper">
+            <p class="form__name-ttl">ユーザー名</p>
+            <input class="form__name" type="text" name="name" value="{{ old('name', $user->name) }}">
+            <div class="error">
+                @error('name')
+                {{ $message }}
+                @enderror
+            </div>
+        </div>
+        <div class="form__post-wrapper">
+            <p class="form__post-ttl">郵便番号</p>
+            <input class="form__post" type="text" name="postal_code"
+                value="{{ old('postal_code', $user->profile->postal_code ?? '') }}">
+            <div class="error">
+                @error('postal_code')
+                {{ $message }}
+                @enderror
+            </div>
+        </div>
+        <div class="form__address-wrapper">
+            <p class="form__address-ttl">住所</p>
+            <input class="form__address" type="text" name="address"
+                value="{{ old('address', $user->profile->address ?? '') }}">
+            <div class="error">
+                @error('address')
+                {{ $message }}
+                @enderror
+            </div>
+        </div>
         <p class="form__building-ttl">建物名</p>
         <input class="form__building" type="text" name="building"
             value="{{ old('building', $user->profile->building ?? '') }}">

@@ -31,6 +31,7 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
   Route::get('/mypage', [ProfileController::class, 'index'])->name('profile.index');
   Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+  Route::patch('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 
   Route::post('/products/{product}/like', [LikeController::class, 'store'])->name('products.like');
   Route::delete('/products/{product}/like', [LikeController::class, 'destroy'])->name('products.unlike');
