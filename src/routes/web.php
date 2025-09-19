@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SellController;
+use App\Http\Controllers\PurchaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,8 @@ Route::middleware('auth')->group(function () {
 
   Route::get('/sell', [SellController::class, 'index'])->name('sell.index');
   Route::post('/sell', [SellController::class, 'store'])->name('sell.store');
+
+  Route::get('/purchase/{item_id}', [PurchaseController::class, 'create'])->name('purchase.create');
+  Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'address'])->name('purchase.address');
+  Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');
 });

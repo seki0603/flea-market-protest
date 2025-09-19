@@ -70,7 +70,7 @@
         {{-- 購入ボタン --}}
         <div class="item__buy">
             @auth
-            <a class="item__buy-btn" href="">購入手続きへ</a>
+            <a class="item__buy-btn" href="{{ route('purchase.create', ['item_id' => $product->id]) }}">購入手続きへ</a>
             @else
             <a class="item__buy-btn" href="{{ route('login') }}">購入手続きへ</a>
             @endauth
