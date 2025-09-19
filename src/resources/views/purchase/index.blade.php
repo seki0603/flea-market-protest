@@ -47,6 +47,9 @@
                 <p class="postal-code">〒{{ session('ship_postal_code', $user->profile->postal_code) }}</p>
                 <p class="address">{{ session('ship_address', $user->profile->address) }}</p>
                 <p class="building">{{ session('ship_building', $user->profile->building) }}</p>
+                @if (session('message'))
+                <p class="success">{{ session('message') }}</p>
+                @endif
                 @error('')
                 <p class="error">{{ $message }}</p>
                 @enderror

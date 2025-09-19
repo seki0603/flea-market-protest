@@ -27,7 +27,7 @@
             <h3 class="form__section-ttl">建物名</h3>
             <input class="form__input" type="text" name="ship_building" value="{{ old('ship_building')}}">
         </div>
-        <button class="form__btn">更新する</button>
+        <button class="form__btn" type="submit">更新する</button>
     </form>
 </div>
 @endsection

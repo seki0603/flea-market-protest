@@ -143,6 +143,11 @@
     display: flex;
 }
 
+.error {
+    font-size: 20px;
+    font-weight: bold;
+    color: #FF5555;
+}
 
 .ship-address {
     padding: 15px 20px;
@@ -181,10 +186,10 @@
     margin-bottom: 10px;
 }
 
-.error {
+.success {
     font-size: 20px;
     font-weight: bold;
-    color: #FF5555;
+    color: #0073CC;
 }
 
 .result-content {

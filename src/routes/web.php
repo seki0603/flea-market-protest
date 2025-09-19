@@ -30,19 +30,19 @@ Route::post('/login', [\Laravel\Fortify\Http\Controllers\AuthenticatedSessionCon
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
-  Route::get('/mypage', [ProfileController::class, 'index'])->name('profile.index');
-  Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-  Route::patch('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/mypage', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-  Route::post('/products/{product}/like', [LikeController::class, 'store'])->name('products.like');
-  Route::delete('/products/{product}/like', [LikeController::class, 'destroy'])->name('products.unlike');
+    Route::post('/products/{product}/like', [LikeController::class, 'store'])->name('products.like');
+    Route::delete('/products/{product}/like', [LikeController::class, 'destroy'])->name('products.unlike');
 
-  Route::post('/products/{product}/comments', [CommentController::class, 'store'])->name('products.comments.store');
+    Route::post('/products/{product}/comments', [CommentController::class, 'store'])->name('products.comments.store');
 
-  Route::get('/sell', [SellController::class, 'index'])->name('sell.index');
-  Route::post('/sell', [SellController::class, 'store'])->name('sell.store');
+    Route::get('/sell', [SellController::class, 'index'])->name('sell.index');
+    Route::post('/sell', [SellController::class, 'store'])->name('sell.store');
 
-  Route::get('/purchase/{item_id}', [PurchaseController::class, 'create'])->name('purchase.create');
-  Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'address'])->name('purchase.address');
-  Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');
+    Route::get('/purchase/{item_id}', [PurchaseController::class, 'create'])->name('purchase.create');
+    Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'address'])->name('purchase.address');
+    Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');
 });

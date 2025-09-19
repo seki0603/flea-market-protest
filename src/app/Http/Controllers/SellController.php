@@ -32,6 +32,6 @@ class SellController extends Controller
 
         $product->categories()->sync($request->categories);
 
-        return redirect()->route('profile.index', ['page' => 'sell'])->with('success', '商品を出品しました');
+        return redirect()->route('profile.index', ['page' => 'sell'])->with('message', '商品を出品しました');
     }
 }

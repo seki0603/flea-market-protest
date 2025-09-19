@@ -13,6 +13,9 @@
         </div>
         <a class="profile__btn" href="{{ route('profile.edit') }}">プロフィールを編集</a>
     </div>
+    @if (session('message'))
+    <p class="success">{{ session('message') }}</p>
+    @endif
 </div>
 
 <div class="tab__wrapper">
