@@ -5,7 +5,8 @@
 @endsection
 
 @section('content')
-<form class="content">
+<form class="content" action="{{ route('purchase.store', $product->id) }}" method="POST">
+    @csrf
     <div class="select-content">
 
         <div class="product">
@@ -50,7 +51,7 @@
                 @if (session('message'))
                 <p class="success">{{ session('message') }}</p>
                 @endif
-                @error('')
+                @error('ship_address')
                 <p class="error">{{ $message }}</p>
                 @enderror
             </div>
@@ -81,6 +82,7 @@
 @endsection
 
 @section('script')
+{{-- カスタムセレクト --}}
 <script>
     document.addEventListener("DOMContentLoaded", () => {
     const selectbox = document.getElementById('paymentSelectbox');

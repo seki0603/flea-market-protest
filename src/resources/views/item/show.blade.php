@@ -11,8 +11,10 @@
     {{-- 商品画像 --}}
     <div class="item__img-wrapper">
         <img class="item__img" src="{{ asset('storage/'.$product->image_path) }}" alt="商品画像">
-        @if($product->buyer_id || $product->sold_at)
-        <span class="sold-label">Sold</span>
+        @if($product->sold_at)
+        <div class="sold-overlay">
+            <span class="sold-text">sold</span>
+        </div>
         @endif
     </div>
 
@@ -68,6 +70,9 @@
         </div>
 
         {{-- 購入ボタン --}}
+        @if ($product->sold_at)
+        <p class="item__sold-message">Sold Out</p>
+        @else
         <div class="item__buy">
             @auth
             <a class="item__buy-btn" href="{{ route('purchase.create', ['item_id' => $product->id]) }}">購入手続きへ</a>
@@ -75,6 +80,7 @@
             <a class="item__buy-btn" href="{{ route('login') }}">購入手続きへ</a>
             @endauth
         </div>
+        @endif
 
         {{-- 商品説明 --}}
         <div class="item__section">
