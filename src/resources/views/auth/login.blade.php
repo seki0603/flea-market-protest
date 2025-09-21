@@ -13,7 +13,9 @@
 <body>
     <header class="header">
         <div class="header__inner">
-            <img class="header__logo" src="{{ asset('images/logo.svg') }}" alt="COACHTECH">
+            <a href="{{ route('items.index') }}">
+                <img class="header__logo" src="{{ asset('images/logo.svg') }}" alt="COACHTECH">
+            </a>
         </div>
     </header>
 

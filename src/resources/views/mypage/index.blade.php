@@ -29,12 +29,16 @@
 <div class="products">
     @foreach($sellProducts as $product)
     <div class="product">
-        <img class="product__img" src="{{ asset('storage/'.$product->image_path) }}" alt="商品画像">
+        <div class="product__img-wrapper">
+            <img class="product__img" src="{{ asset('storage/'.$product->image_path) }}" alt="商品画像">
+            {{-- Sold判定 --}}
+            @if($product->sold_at)
+            <div class="sold-overlay">
+                <span class="sold-text">Sold</span>
+            </div>
+            @endif
+        </div>
         <p class="product__name">{{ $product->name }}</p>
-        {{-- Sold判定 --}}
-        @if($product->buyer_id || $product->sold_at)
-        <span class="sold-label">Sold</span>
-        @endif
     </div>
     @endforeach
 </div>

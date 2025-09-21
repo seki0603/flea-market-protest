@@ -32,7 +32,7 @@
                 {{-- Sold判定 --}}
                 @if($product->sold_at)
                 <div class="sold-overlay">
-                    <span class="sold-text">sold</span>
+                    <span class="sold-text">Sold</span>
                 </div>
                 @endif
             </div>

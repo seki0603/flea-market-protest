@@ -13,9 +13,9 @@ class ItemController extends Controller
         if ($request->query('tab') === 'mylist') {
             $products = Product::whereHas('likes', function ($q) {
                 $q->where('user_id', Auth::id());
-            })->paginate(20);
+            })->get();
         } else {
-            $products = Product::where('seller_id', '!=', Auth::id())->paginate(20);
+            $products = Product::where('seller_id', '!=', Auth::id())->get();
         }
         return view('index', compact('products'));
     }

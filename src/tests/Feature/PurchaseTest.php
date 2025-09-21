@@ -39,7 +39,7 @@ class PurchaseTest extends TestCase
     }
 
     /** @test */
-    public function 購入した商品は一覧画面にて「sold」と表示()
+    public function 購入した商品は一覧画面にて「Sold」と表示()
     {
         $this->seed();
 
@@ -54,7 +54,7 @@ class PurchaseTest extends TestCase
             ]);
 
         $response = $this->get(route('items.index'));
-        $response->assertSee('sold');
+        $response->assertSee('Sold');
     }
 
     /** @test */

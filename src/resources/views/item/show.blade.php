@@ -13,7 +13,7 @@
         <img class="item__img" src="{{ asset('storage/'.$product->image_path) }}" alt="商品画像">
         @if($product->sold_at)
         <div class="sold-overlay">
-            <span class="sold-text">sold</span>
+            <span class="sold-text">Sold</span>
         </div>
         @endif
     </div>
@@ -108,7 +108,7 @@
 
         @foreach($product->comments as $comment)
         <div class="item__comment">
-            <img class="item__comment-img" src="" alt="">
+            <img class="item__comment-img" src="{{ asset('storage/' . ($comment->user->profile->avatar_path)) }}" alt="">
             <p class="item__comment-user">{{ $comment->user->name}}</p>
         </div>
         <p class="item__comment-text">{{ $comment->body}}</p>

@@ -15,7 +15,9 @@
     <header class="header">
         <div class="header__inner">
             <div class="header__logo">
-                <img class="header__logo-img" src="{{ asset('images/logo.svg') }}" alt="COACHTECH">
+                <a href="{{ route('items.index') }}">
+                    <img class="header__logo-img" src="{{ asset('images/logo.svg') }}" alt="COACHTECH">
+                </a>
             </div>
             <form class="header__form" action="">
                 <input class="header__form-input" type="text" placeholder="なにをお探しですか？">
