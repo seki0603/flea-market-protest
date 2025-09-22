@@ -19,24 +19,26 @@
                     <img class="header__logo-img" src="{{ asset('images/logo.svg') }}" alt="COACHTECH">
                 </a>
             </div>
-            <form class="header__form" action="">
-                <input class="header__form-input" type="text" placeholder="なにをお探しですか？">
+            <form class="header__form" action="{{ route('items.index') }}" method="GET">
+                <input class="header__form-input" type="text" name="keyword" value="{{ request('keyword') }}"
+                    placeholder="なにをお探しですか？">
+                <button class="header__form-btn" type="submit">検索</button>
             </form>
             <div class="header__link">
 
                 @guest
                 <a class="header__link-login" href="{{ route('login') }}">ログイン</a>
                 <a class="header__link-mypage" href="{{ route('login') }}">マイページ</a>
-                <a class="header__link-seller" href="{{ route('login') }}">出品</a>
+                <a class="header__link-purchase" href="{{ route('login') }}">出品</a>
                 @endguest
 
                 @auth
-                <form class="header__button" action="{{ route('logout') }}" method="POST">
+                <form class="header__btn" action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button class="header__button-logout" type="submit">ログアウト</button>
+                    <button class="header__btn-logout" type="submit">ログアウト</button>
                 </form>
                 <a class="header__link-mypage" href="{{ route('profile.index') }}">マイページ</a>
-                <a class="header__link-seller" href="{{ route('sell.index') }}">出品</a>
+                <a class="header__link-purchase" href="{{ route('sell.index') }}">出品</a>
                 @endauth
 
             </div>

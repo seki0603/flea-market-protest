@@ -10,13 +10,30 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->query('tab') === 'mylist') {
-            $products = Product::whereHas('likes', function ($q) {
-                $q->where('user_id', Auth::id());
-            })->get();
-        } else {
-            $products = Product::where('seller_id', '!=', Auth::id())->get();
+        $query = Product::query();
+
+        // キーワード検索
+        if ($request->filled('keyword')) {
+            $query->where('name', 'like', '%' . $request->keyword . '%');
         }
+
+        // タブがマイリストの場合
+        if ($request->query('tab') === 'mylist') {
+            if (Auth::check()) {
+                $query->whereHas('likes', function ($q) {
+                    $q->where('user_id', Auth::id());
+                });
+            } else {
+                $query->whereRaw('0 = 1');
+            }
+        } else {
+            if (Auth::check()) {
+                $query->where('seller_id', '!=', Auth::id());
+            }
+        }
+
+        $products = $query->get();
+
         return view('index', compact('products'));
     }
 

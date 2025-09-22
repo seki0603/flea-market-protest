@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Product;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-use Illuminate\Support\Facades\Auth;
 
 class IndexTest extends TestCase
 {
@@ -54,6 +53,6 @@ class IndexTest extends TestCase
 
         $response = $this->actingAs($userWithProduct)->get('/');
 
-        $response->assertDontSee("/item/{$ownProduct->id}");
+        $response->assertDontSee($ownProduct->name);
     }
 }

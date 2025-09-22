@@ -11,11 +11,11 @@
         @if (session('message'))
         <p class="success">{{ session('message') }}</p>
         @endif
-        <a href="{{ url('/?tab=recommend') }}"
+        <a href="{{ request('keyword') ? url('/?keyword=' . request('keyword')) : url('/') }}"
             class="tab__link {{ request('tab') !== 'mylist' ? 'tab__link--active' : '' }}">
             おすすめ
         </a>
-        <a href="{{ url('/?tab=mylist') }}"
+        <a href="{{ request('keyword') ? url('/?tab=mylist&keyword=' . request('keyword')) : url('/?tab=mylist') }}"
             class="tab__link {{ request('tab') === 'mylist' ? 'tab__link--active' : '' }}">
             マイリスト
         </a>

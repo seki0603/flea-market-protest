@@ -23,10 +23,13 @@
 
 .header__form {
     width: 500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .header__form-input {
-    width: 100%;
+    width: 70%;
     height: 50px;
     font-size: 24px;
     padding-left: 30px;
@@ -50,6 +53,16 @@
     opacity: 1;
 }
 
+.header__form-btn {
+    width: 20%;
+    height: 50px;
+    font-size: 24px;
+    background: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
 .header__link {
     display: flex;
     justify-content: center;
@@ -65,11 +78,11 @@
     text-decoration: none;
 }
 
-.header__button {
+.header__btn {
     width: 135px;
 }
 
-.header__button-logout {
+.header__btn-logout {
     background: none;
     font-size: 24px;
     color: #fff;
@@ -86,10 +99,10 @@
     text-decoration: none;
 }
 
-.header__link-seller {
+.header__link-purchase {
     display: block;
     padding: 5px 20px;
-    border-radius: 3px;
+    border-radius: 6px;
     background-color: #fff;
     color: #000;
     text-decoration: none;
