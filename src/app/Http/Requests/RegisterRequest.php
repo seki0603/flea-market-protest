@@ -33,8 +33,8 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'ユーザー名を入力してください',
-            'name.max' => 'ユーザー名は20文字以下で入力してください',
+            'name.required' => 'お名前を入力してください',
+            'name.max' => 'お名前は20文字以下で入力してください',
             'email.required' => 'メールアドレスを入力してください',
             'email.email' => 'メールアドレスはメール形式で入力してください',
             'password.required' => 'パスワードを入力してください',
@@ -46,7 +46,7 @@ class RegisterRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => 'ユーザー名',
+            'name' => 'お名前',
             'email' => 'メールアドレス',
             'password' => 'パスワード',
         ];

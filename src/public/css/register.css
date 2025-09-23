@@ -68,6 +68,7 @@
     background: #ff5555;
     border: none;
     border-radius: 6px;
+    cursor: pointer;
 }
 
 .content__link {

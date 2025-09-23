@@ -56,14 +56,14 @@
                 @auth
                 <form action="" method="POST">
                     @csrf
-                    <button class="comment-btn" type="submit">
+                    <div class="comment-btn">
                         <img class="comment-btn__img" src="{{ asset('images/speechbuble.png') }}" alt="コメント">
-                    </button>
+                    </div>
                 </form>
                 @else
-                <a class="comment-btn" href="{{ route('login') }}">
+                <div class="comment-btn">
                     <img class="comment-btn__img" src="{{ asset('images/speechbuble.png') }}" alt="コメント">
-                </a>
+                </div>
                 @endauth
                 <p class="comment-count">{{ $product->comments->count() }}</p>
             </div>

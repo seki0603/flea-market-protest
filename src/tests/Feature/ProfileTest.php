@@ -103,5 +103,6 @@ class ProfileTest extends TestCase
             ->assertSee('初期ユーザー')
             ->assertSee('987-6543')
             ->assertSee('東京都目黒区');
+        // ユーザー情報取得（プロフィール画像・ユーザー名）のテストも兼任
     }
 }

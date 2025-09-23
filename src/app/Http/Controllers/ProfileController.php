@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
+use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
@@ -28,21 +29,14 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
-        $profile = $user->profile;
-        $profile->postal_code = $request->postal_code;
-        $profile->address = $request->address;
-        $profile->building = $request->building;
-
-        if ($request->hasFile('avatar')) {
-            $path = $request->file('avatar')->store('avatars', 'public');
-            $profile->avatar_path = $path;
-        }
-
-        $profile->save();
-
-        $user->name = $request->name;
-        $user->save();
-
+        DB::transaction(function () use ($request, $user) {
+            $profileData = $request->only(['postal_code', 'address', 'building']);
+            if ($request->hasFile('avatar')) {
+                $profileData['avatar_path'] = $request->file('avatar')->store('avatars', 'public');
+            }
+            $user->profile->update($profileData);
+            $user->update(['name' => $request->name]);
+        });
         return redirect()->route('profile.edit')->with('message', 'プロフィールを更新しました');
     }
 }
