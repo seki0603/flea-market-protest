@@ -33,12 +33,20 @@
                 @endguest
 
                 @auth
+                @if(Auth::user()->hasVerifiedEmail())
+                {{-- 認証済みログイン --}}
                 <form class="header__btn" action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button class="header__btn-logout" type="submit">ログアウト</button>
                 </form>
                 <a class="header__link-mypage" href="{{ route('profile.index') }}">マイページ</a>
                 <a class="header__link-purchase" href="{{ route('sell.index') }}">出品</a>
+                @else
+                {{-- 未認証ログインは未ログイン扱いと同じ表示にする --}}
+                <a class="header__link-login" href="{{ route('login') }}">ログイン</a>
+                <a class="header__link-mypage" href="{{ route('login') }}">マイページ</a>
+                <a class="header__link-purchase" href="{{ route('login') }}">出品</a>
+                @endif
                 @endauth
 
             </div>

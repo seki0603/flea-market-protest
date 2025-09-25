@@ -27,7 +27,7 @@
         {{-- いいね --}}
         <div class="item__icons">
             <div class="item__icons-inner">
-                @auth
+                @verified
                 @if ($product->isLikedBy(Auth::user()))
                 <form action="{{ route('products.unlike', $product) }}" method="POST">
                     @csrf
@@ -48,7 +48,7 @@
                 <a class="like-btn" href="{{ route('login') }}">
                     <img class="like-btn__img" src="{{ asset('images/star.png') }}" alt="いいね">
                 </a>
-                @endauth
+                @endverified
                 <p class="like-count">{{ $product->likes->count() }}</p>
             </div>
             {{-- コメント --}}
@@ -74,11 +74,11 @@
         <p class="item__sold-message">Sold Out</p>
         @else
         <div class="item__buy">
-            @auth
+            @verified
             <a class="item__buy-btn" href="{{ route('purchase.create', ['item_id' => $product->id]) }}">購入手続きへ</a>
             @else
             <a class="item__buy-btn" href="{{ route('login') }}">購入手続きへ</a>
-            @endauth
+            @endverified
         </div>
         @endif
 
@@ -115,7 +115,7 @@
         @endforeach
 
         <p class="item__comment-ttl">商品へのコメント</p>
-        @auth
+        @verified
         <form id="comment-form" class="item__comment-form" action="{{ route('products.comments.store', $product->id) }}"
             method="POST">
             @csrf
@@ -130,7 +130,7 @@
             @else
             <textarea class="item__comment-input" name="body">{{ old('body') }}</textarea>
             <a class="item__comment-btn" href="{{ route('login') }}">コメントを送信する</a>
-            @endauth
+            @endverified
         </form>
 
         {{-- エラー時画面スクロール --}}

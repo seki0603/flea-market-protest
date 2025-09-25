@@ -7,6 +7,7 @@ use Laravel\Fortify\Fortify;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 
@@ -36,9 +37,17 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        Auth::login($user);
+        $user->profile()->create([
+            'postal_code' => '',
+            'address' => '',
+            'building' => '',
+            'avatar_path' => null,
+        ]);
 
-        return redirect()->route('profile.edit');
+        Auth::login($user);
+        event(new Registered($user));
+
+        return redirect()->route('verification.notice');
     }
 
     public function logout(Request $request)

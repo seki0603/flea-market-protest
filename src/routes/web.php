@@ -8,6 +8,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,14 @@ Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [\Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::class, 'store']);
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth'])->group(function () {
+    Route::get('email/verify', [VerificationController::class, 'notice'])->name('verification.notice');
+    Route::get('/email/verify/page', [VerificationController::class, 'site'])->name('verification.site');
+    Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+    ->middleware(['signed'])->name('verification.verify');
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');

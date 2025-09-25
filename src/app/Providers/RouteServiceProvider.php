@@ -17,6 +17,15 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
+    public function authenticated(Request $request, $user)
+    {
+        if (!$user->profile->avatar_path) {
+            return redirect()->route('profile.edit');
+        }
+
+        return redirect(self::HOME);
+    }
+
     public const HOME = '/?tab=mylist';
 
     /**

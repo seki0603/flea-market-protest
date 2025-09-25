@@ -29,6 +29,8 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
+        $wasIncomplete = empty($user->profile->postal_code) || empty($user->profile->address);
+
         DB::transaction(function () use ($request, $user) {
             $profileData = $request->only(['postal_code', 'address', 'building']);
             if ($request->hasFile('avatar')) {
@@ -37,6 +39,11 @@ class ProfileController extends Controller
             $user->profile->update($profileData);
             $user->update(['name' => $request->name]);
         });
+
+        if ($wasIncomplete) {
+            return redirect('/?tab=mylist')->with('message', 'プロフィールを登録しました');
+        }
+
         return redirect()->route('profile.edit')->with('message', 'プロフィールを更新しました');
     }
 }

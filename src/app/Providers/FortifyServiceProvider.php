@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Models\User;
 use App\Http\Requests\LoginRequest;
+use App\Http\Responses\CustomLoginResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -30,5 +32,10 @@ class FortifyServiceProvider extends ServiceProvider
 
             return $user;
         });
+    }
+
+    public function register()
+    {
+        $this->app->singleton(LoginResponse::class, CustomLoginResponse::class);
     }
 }
