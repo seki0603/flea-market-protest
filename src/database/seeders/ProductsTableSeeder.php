@@ -128,7 +128,7 @@ class ProductsTableSeeder extends Seeder
             }
         }
 
-        // （任意）購入：各ユーザー 5件（指定10件から、売れてない中から抽出）
+        // （任意）購入：各ユーザー 2件（指定10件から、売れてない中から抽出）
         foreach ($users as $buyer) {
             $candidates = $createdProducts->whereNull('buyer_id')->where('seller_id', '!=', $buyer->id)->values();
             if ($candidates->isEmpty()) continue;

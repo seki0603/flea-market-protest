@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Like;
 use App\Models\ProductComment;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -18,13 +19,16 @@ class ShowTest extends TestCase
     /** @test */
     public function 商品詳細ページに必要な情報が表示される()
     {
-        $this->seed();
+        $this->seed(\Database\Seeders\TestProductsSeeder::class);
+        $this->seed(\Database\Seeders\CategoriesTableSeeder::class);
 
         $user = User::create([
             'name' => 'テストユーザー',
             'email' => 'test@example.com',
-            'password' => bcrypt('password'),
+            'password' => Hash::make('password123'),
+            'email_verified_at' => now(),
         ]);
+        $user->markEmailAsVerified();
 
         $profile = UserProfile::create([
             'user_id' => $user->id,
@@ -33,15 +37,7 @@ class ShowTest extends TestCase
             'address' => '大阪市住吉区',
         ]);
 
-        $product = Product::create([
-            'seller_id' => $user->id,
-            'name' => 'テスト商品',
-            'brand_name' => 'テストブランド',
-            'price' => 1000,
-            'condition' => 0,
-            'description' => 'テスト説明文',
-            'image_path' => 'products/test.png'
-        ]);
+        $product = Product::first();
 
         Like::create([
             'user_id' => $user->id,
@@ -73,29 +69,22 @@ class ShowTest extends TestCase
     /** @test */
     public function 商品詳細ページに複数選択されたカテゴリが表示される()
     {
+        $this->seed(\Database\Seeders\TestProductsSeeder::class);
+        $this->seed(\Database\Seeders\CategoriesTableSeeder::class);
+
         $user = User::create([
-            'name' => 'カテゴリユーザー',
-            'email' => 'cat@example.com',
-            'password' => bcrypt('password'),
+            'name' => 'テストユーザー',
+            'email' => 'test@example.com',
+            'password' => Hash::make('password123'),
+            'email_verified_at' => now(),
         ]);
+        $user->markEmailAsVerified();
 
-        $product = Product::create([
-            'seller_id' => $user->id,
-            'name' => 'カテゴリテスト商品',
-            'price' => 2000,
-            'condition' => 1,
-            'description' => 'カテゴリ確認',
-            'image_path' => 'products/cat.png'
-        ]);
-
-        // 複数カテゴリ紐づけ
+        $product = Product::first();
         $categories = Category::take(2)->get();
-        foreach ($categories as $category) {
-            $product->categories()->attach($category->id);
-        }
+        $product->categories()->sync($categories->pluck('id'));
 
         $response = $this->get(route('item.show', $product->id));
-
         $response->assertStatus(200);
         foreach ($categories as $category) {
             $response->assertSee($category->name);

@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Like;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -15,9 +16,16 @@ class MylistTest extends TestCase
     /** @test */
     public function いいねした商品だけが表示される()
     {
-        $this->seed();
+        $this->seed(\Database\Seeders\TestProductsSeeder::class);
 
-        $user = User::first();
+        $user = User::create([
+            'name' => 'テストユーザー',
+            'email' => 'test@example.com',
+            'password' => Hash::make('password123'),
+            'email_verified_at' => now(),
+        ]);
+        $user->markEmailAsVerified();
+
         $product = Product::first();
 
         Like::create([
@@ -34,16 +42,26 @@ class MylistTest extends TestCase
     /** @test */
     public function 購入済み商品は「Sold」と表示()
     {
-        $this->seed();
+        $this->seed(\Database\Seeders\TestProductsSeeder::class);
 
-        $user = User::first();
+        $user = User::create([
+            'name' => 'テストユーザー',
+            'email' => 'test@example.com',
+            'password' => Hash::make('password123'),
+            'email_verified_at' => now(),
+        ]);
+        $user->markEmailAsVerified();
+
         $product = Product::first();
 
         Like::create([
             'user_id' => $user->id,
             'product_id' => $product->id,
         ]);
-        $product->update(['buyer_id' => $user->id]);
+        $product->update([
+            'buyer_id' => $user->id,
+            'sold_at' => now(),
+        ]);
 
         $response = $this->actingAs($user)->get('/?tab=mylist');
 
@@ -53,10 +71,17 @@ class MylistTest extends TestCase
     /** @test */
     public function 未認証の場合は何も表示されない()
     {
-        $this->seed();
+        $this->seed(\Database\Seeders\TestProductsSeeder::class);
+
+        $user = User::create([
+            'name' => 'テストユーザー',
+            'email' => 'test@example.com',
+            'password' => Hash::make('password123'),
+            'email_verified_at' => now(),
+        ]);
+        $user->markEmailAsVerified();
 
         $product = Product::first();
-        $user = User::first();
 
         Like::create([
             'user_id' => $user->id,

@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Like;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -15,7 +16,7 @@ class SearchTest extends TestCase
     /** @test */
     public function 「商品名」で部分一致検索ができる()
     {
-        $this->seed();
+        $this->seed(\Database\Seeders\TestProductsSeeder::class);
 
         $product = Product::first();
         $keyword = mb_substr($product->name, 0, 2);
@@ -29,9 +30,16 @@ class SearchTest extends TestCase
     /** @test */
     public function 検索状態がマイリストでも保持されている()
     {
-        $this->seed();
+        $this->seed(\Database\Seeders\TestProductsSeeder::class);
 
-        $user = User::first();
+        $user = User::create([
+            'name' => 'テストユーザー',
+            'email' => 'test@example.com',
+            'password' => Hash::make('password123'),
+            'email_verified_at' => now(),
+        ]);
+        $user->markEmailAsVerified();
+
         $product = Product::first();
 
         Like::create([

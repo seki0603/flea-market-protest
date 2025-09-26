@@ -106,6 +106,7 @@ class RegisterTest extends TestCase
         $this->assertNotNull($user);
         $this->assertTrue(Hash::check('password123', $user->password));
 
-        $response->assertRedirect(route('profile.edit'));
+        // メール認証機能を実装したため、リダイレクトの確認を認証誘導画面に変更
+        $response->assertRedirect(route('verification.notice'));
     }
 }

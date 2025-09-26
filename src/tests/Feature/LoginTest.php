@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use App\Models\UserProfile;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -59,6 +60,15 @@ class LoginTest extends TestCase
             'name' => 'テストユーザー',
             'email' => 'test@example.com',
             'password' => Hash::make('password123'),
+            'email_verified_at' => now(),
+        ]);
+        $user->markEmailAsVerified();
+
+        UserProfile::create([
+            'user_id' => $user->id,
+            'avatar_path' => 'avatars/test.png',
+            'postal_code' => '123-4567',
+            'address' => '大阪市住吉区',
         ]);
 
         $response = $this->post(route('login'), [

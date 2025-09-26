@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -19,9 +20,17 @@ class SellTest extends TestCase
     {
         Storage::fake('public');
 
-        $this->seed();
+        $this->seed(\Database\Seeders\TestProductsSeeder::class);
+        $this->seed(\Database\Seeders\CategoriesTableSeeder::class);
 
-        $user = User::first();
+        $user = User::create([
+            'name' => 'テストユーザー',
+            'email' => 'test@example.com',
+            'password' => Hash::make('password123'),
+            'email_verified_at' => now(),
+        ]);
+        $user->markEmailAsVerified();
+
         $categories = Category::take(3)->get();
 
         $this->actingAs($user);
@@ -62,9 +71,15 @@ class SellTest extends TestCase
     /** @test */
     public function 必須項目が未入力の場合はバリデーションエラー()
     {
-        $this->seed();
 
-        $user = User::first();
+        $user = User::create([
+            'name' => 'テストユーザー',
+            'email' => 'test@example.com',
+            'password' => Hash::make('password123'),
+            'email_verified_at' => now(),
+        ]);
+        $user->markEmailAsVerified();
+
         $this->actingAs($user);
 
         $response = $this->post(route('sell.store'), [

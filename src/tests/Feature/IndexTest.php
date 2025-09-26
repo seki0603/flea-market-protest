@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use App\Models\Product;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -14,7 +15,7 @@ class IndexTest extends TestCase
     /** @test */
     public function 全商品を取得できる()
     {
-        $this->seed();
+        $this->seed(\Database\Seeders\TestProductsSeeder::class);
 
         $response = $this->get('/');
 
@@ -30,10 +31,21 @@ class IndexTest extends TestCase
     /** @test */
     public function 購入済み商品は「Sold」と表示される()
     {
-        $this->seed();
+        $this->seed(\Database\Seeders\TestProductsSeeder::class);
+
+        $buyer = User::create([
+            'name' => '購入ユーザー',
+            'email' => 'buyer@example.com',
+            'password' => Hash::make('password123'),
+            'email_verified_at' => now(),
+        ]);
+        $buyer->markEmailAsVerified();
 
         $soldProduct = Product::first();
-        $soldProduct->update(['buyer_id' => 1]);
+        $soldProduct->update([
+            'buyer_id' => $buyer->id,
+            'sold_at' => now(),
+        ]);
 
         $response = $this->get('/');
 
@@ -43,7 +55,7 @@ class IndexTest extends TestCase
     /** @test */
     public function 自分が出品した商品は表示されない()
     {
-        $this->seed();
+        $this->seed(\Database\Seeders\TestProductsSeeder::class);
 
         $userWithProduct = User::whereHas('products')->first();
         $this->assertNotNull($userWithProduct, 'Seederで商品を持つユーザーが見つかりません');

@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use App\Models\Product;
-use App\MOdels\Order;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -15,12 +15,19 @@ class PurchaseTest extends TestCase
     /** @test */
     public function 「購入する」ボタンを押下すると購入が完了する()
     {
-        $this->seed();
+        $this->seed(\Database\Seeders\TestProductsSeeder::class);
 
-        $user = User::first();
+        $buyer = User::create([
+            'name' => '購入ユーザー',
+            'email' => 'buyer@example.com',
+            'password' => Hash::make('password123'),
+            'email_verified_at' => now(),
+        ]);
+
+        $buyer->markEmailAsVerified();
         $product = Product::first();
 
-        $this->actingAs($user)
+        $this->actingAs($buyer)
             ->post(route('purchase.store', $product->id), [
                 'payment_method' => 'カード支払い',
                 'ship_postal_code' => '123-4567',
@@ -29,7 +36,7 @@ class PurchaseTest extends TestCase
 
         $this->assertDatabaseHas('orders', [
             'product_id' => $product->id,
-            'buyer_id' => $user->id,
+            'buyer_id' => $buyer->id,
             'payment_method' => 'カード支払い',
             'ship_postal_code' => '123-4567',
             'ship_address' => '大阪市住吉区',
@@ -41,12 +48,19 @@ class PurchaseTest extends TestCase
     /** @test */
     public function 購入した商品は一覧画面にて「Sold」と表示()
     {
-        $this->seed();
+        $this->seed(\Database\Seeders\TestProductsSeeder::class);
 
-        $user = User::first();
+        $buyer = User::create([
+            'name' => '購入ユーザー',
+            'email' => 'buyer@example.com',
+            'password' => Hash::make('password123'),
+            'email_verified_at' => now(),
+        ]);
+
+        $buyer->markEmailAsVerified();
         $product = Product::first();
 
-        $this->actingAs($user)
+        $this->actingAs($buyer)
             ->post(route('purchase.store', $product->id), [
                 'payment_method' => 'カード支払い',
                 'ship_postal_code' => '123-4567',
@@ -60,31 +74,55 @@ class PurchaseTest extends TestCase
     /** @test */
     public function 購入した商品一覧に追加されている()
     {
-        $this->seed();
+        $this->seed(\Database\Seeders\TestProductsSeeder::class);
 
-        $user = User::first();
+        $buyer = User::create([
+            'name' => '購入ユーザー',
+            'email' => 'buyer@example.com',
+            'password' => Hash::make('password123'),
+            'email_verified_at' => now(),
+        ]);
+
+        $buyer->markEmailAsVerified();
+
+        $buyer->profile()->create([
+            'postal_code' => '123-4567',
+            'address' => '大阪市住吉区',
+            'building' => 'テストビル101',
+            'avatar_path' => 'avatars/default.png',
+        ]);
+
         $product = Product::first();
 
-        $this->actingAs($user)
+        $this->actingAs($buyer)
             ->post(route('purchase.store', $product->id), [
                 'payment_method' => 'カード支払い',
                 'ship_postal_code' => '123-4567',
                 'ship_address' => '大阪市住吉区',
             ]);
 
-        $response = $this->get(route('profile.index', ['page' => 'buy']));
+        $response = $this->get(route('profile.index', ['tab' => 'buy']));
+        $this->assertDatabaseHas('orders', ['product_id' => $product->id]);
+        $response->assertStatus(200);
         $response->assertSee($product->name);
     }
 
     /** @test */
     public function 支払い方法の選択が小計画面に反映される()
     {
-        $this->seed();
+        $this->seed(\Database\Seeders\TestProductsSeeder::class);
 
-        $user = User::first();
+        $buyer = User::create([
+            'name' => '購入ユーザー',
+            'email' => 'buyer@example.com',
+            'password' => Hash::make('password123'),
+            'email_verified_at' => now(),
+        ]);
+
+        $buyer->markEmailAsVerified();
         $product = Product::first();
 
-        $this->actingAs($user)
+        $this->actingAs($buyer)
             ->post(route('purchase.store', $product->id), [
                 'payment_method' => 'カード支払い',
                 'ship_postal_code' => '123-4567',
@@ -94,7 +132,7 @@ class PurchaseTest extends TestCase
         // 小計画面の値がDB保存されているかで確認
         $this->assertDatabaseHas('orders', [
             'product_id' => $product->id,
-            'buyer_id' => $user->id,
+            'buyer_id' => $buyer->id,
             'payment_method' => 'カード支払い',
         ]);
     }
@@ -102,12 +140,19 @@ class PurchaseTest extends TestCase
     /** @test */
     public function 購入した商品に送付先住所が紐づいて登録される()
     {
-        $this->seed();
+        $this->seed(\Database\Seeders\TestProductsSeeder::class);
 
-        $user = User::first();
+        $buyer = User::create([
+            'name' => '購入ユーザー',
+            'email' => 'buyer@example.com',
+            'password' => Hash::make('password123'),
+            'email_verified_at' => now(),
+        ]);
+
+        $buyer->markEmailAsVerified();
         $product = Product::first();
 
-        $this->actingAs($user)
+        $this->actingAs($buyer)
             ->post(route('purchase.store', $product->id), [
                 'payment_method' => 'コンビニ支払い',
                 'ship_postal_code' => '123-4567',
