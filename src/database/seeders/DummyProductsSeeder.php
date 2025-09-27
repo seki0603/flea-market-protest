@@ -14,19 +14,19 @@ class DummyProductsSeeder extends Seeder
     {
         $faker  = \Faker\Factory::create('ja_JP');
         $users  = User::all();
-        $bucket = collect(); // 出品分＋購入分を全部ここに集約
+        $bucket = collect();
 
         foreach ($users as $user) {
-            // 出品商品 5〜6件
+            // 出品商品：各ユーザー5〜6件
             $created = Product::factory()->count(rand(5, 6))->create(['seller_id' => $user->id]);
             $bucket  = $bucket->merge($created);
 
-            // 購入商品 5〜6件（生成時に buyer_id/sold_at を確定）
+            // 購入商品：各ユーザー5〜6件
             $created = Product::factory()->count(rand(5, 6))->purchasedBy($user)->create();
             $bucket  = $bucket->merge($created);
         }
 
-        // コメント（各商品 1〜2件）
+        // コメント：各商品1〜2件
         foreach ($bucket as $product) {
             $commentUsers = $users->random(rand(1, 2));
             foreach ($commentUsers as $u) {
@@ -38,7 +38,7 @@ class DummyProductsSeeder extends Seeder
             }
         }
 
-        // いいね：各ユーザー 5件（←水増し分から）
+        // いいね：各ユーザー5件
         foreach ($users as $u) {
             $liked = $bucket->random(min(5, $bucket->count()));
             foreach ($liked as $p) {

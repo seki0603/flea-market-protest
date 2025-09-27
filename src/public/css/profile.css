@@ -10,7 +10,7 @@
     text-align: center;
 }
 
-.form__ttl {
+.form__title {
     text-align: center;
     font-size: 36px;
     font-weight: bold;
@@ -71,8 +71,13 @@
     padding: 10px 0;
 }
 
-.form__name-ttl, .form__post-ttl,
-.form__address-ttl, .form__building-ttl {
+.form__name-wrapper, .form__post-wrapper,
+.form__address-wrapper {
+    margin-bottom: 50px;
+}
+
+.form__name-title, .form__post-title,
+.form__address-title, .form__building-title {
     font-size: 24px;
     font-weight: bold;
     margin: 0;
@@ -90,16 +95,11 @@
     padding: 10px;
 }
 
-.form__name-wrapper, .form__post-wrapper,
-.form__address-wrapper {
-    margin-bottom: 50px;
-}
-
 .form__building {
     margin-bottom: 80px;
 }
 
-.form__btn {
+.form__button {
     display: block;
     width: 100%;
     height: 60px;

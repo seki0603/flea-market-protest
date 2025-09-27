@@ -52,6 +52,7 @@ class ExhibitionRequest extends FormRequest
         ];
     }
 
+    // 金額入力欄のエラー防止
     protected function prepareForValidation()
     {
         if ($this->has('price')) {

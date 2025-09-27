@@ -34,7 +34,7 @@
     margin-left: 80px;
 }
 
-.profile__btn {
+.profile__button {
     width: 310px;
     border: 2px solid #FF5555;
     border-radius: 10px;
@@ -72,7 +72,7 @@
     padding-left: 100px;
 }
 
-.tab__link.active {
+.tab__link--active {
     color: #ff0000;
 }
 

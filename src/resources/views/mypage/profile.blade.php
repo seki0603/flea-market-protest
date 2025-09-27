@@ -9,7 +9,7 @@
     @if (session('message'))
     <p class="success">{{ session('message') }}</p>
     @endif
-    <h2 class="form__ttl">プロフィール設定</h2>
+    <h2 class="form__title">プロフィール設定</h2>
     <form class="form" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('patch')
@@ -37,7 +37,7 @@
         </div>
 
         <div class="form__name-wrapper">
-            <p class="form__name-ttl">ユーザー名</p>
+            <p class="form__name-title">ユーザー名</p>
             <input class="form__name" type="text" name="name" value="{{ old('name', $user->name) }}">
             <div class="error">
                 @error('name')
@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="form__post-wrapper">
-            <p class="form__post-ttl">郵便番号</p>
+            <p class="form__post-title">郵便番号</p>
             <input class="form__post" type="text" name="postal_code"
                 value="{{ old('postal_code', $user->profile->postal_code ?? '') }}">
             <div class="error">
@@ -56,7 +56,7 @@
             </div>
         </div>
         <div class="form__address-wrapper">
-            <p class="form__address-ttl">住所</p>
+            <p class="form__address-title">住所</p>
             <input class="form__address" type="text" name="address"
                 value="{{ old('address', $user->profile->address ?? '') }}">
             <div class="error">
@@ -65,10 +65,10 @@
                 @enderror
             </div>
         </div>
-        <p class="form__building-ttl">建物名</p>
+        <p class="form__building-title">建物名</p>
         <input class="form__building" type="text" name="building"
             value="{{ old('building', $user->profile->building ?? '') }}">
-        <button class="form__btn" type="submit">更新する</button>
+        <button class="form__button" type="submit">更新する</button>
     </form>
 </div>
 @endsection

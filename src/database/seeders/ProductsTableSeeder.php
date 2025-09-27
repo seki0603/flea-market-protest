@@ -100,12 +100,12 @@ class ProductsTableSeeder extends Seeder
 
         $createdProducts = collect();
 
-        // 指定10件を作成（出品者はダミーユーザーに振り分け）
+        // 出品者をダミーユーザーに振り分け
         foreach ($productData as $data) {
             $product = Product::create($data + ['seller_id' => rand(1, 3)]);
             $createdProducts->push($product);
 
-            // コメント 1〜2件
+            // コメント:各商品1〜2件
             $commentUsers = User::inRandomOrder()->take(rand(1, 2))->get();
             foreach ($commentUsers as $user) {
                 ProductComment::create([
@@ -116,7 +116,7 @@ class ProductsTableSeeder extends Seeder
             }
         }
 
-        // いいね：各ユーザー 5件（指定10件から）
+        // いいね：各ユーザー 5件
         $users = User::all();
         foreach ($users as $user) {
             $liked = $createdProducts->random(min(5, $createdProducts->count()));
@@ -128,7 +128,7 @@ class ProductsTableSeeder extends Seeder
             }
         }
 
-        // （任意）購入：各ユーザー 2件（指定10件から、売れてない中から抽出）
+        // 購入：各ユーザー 2件
         foreach ($users as $buyer) {
             $candidates = $createdProducts->whereNull('buyer_id')->where('seller_id', '!=', $buyer->id)->values();
             if ($candidates->isEmpty()) continue;
@@ -136,7 +136,7 @@ class ProductsTableSeeder extends Seeder
             $toBuy = $candidates->random(min(2, $candidates->count()));
             foreach ($toBuy as $p) {
                 $p->update(['buyer_id' => $buyer->id, 'sold_at' => now()]);
-                // Order を合わせて作成（Factory と重複しないよう簡易作成）
+                // Order を合わせて作成
                 \App\Models\Order::create([
                     'product_id'        => $p->id,
                     'buyer_id'          => $buyer->id,
@@ -144,7 +144,6 @@ class ProductsTableSeeder extends Seeder
                     'price'             => $p->price,
                     'payment_method'    => 'カード支払い',
                     'payment_status'    => 'paid',
-                    'stripe_payment_intent_id' => null,
                     'ship_postal_code'  => $faker->numerify('###-####'),
                     'ship_address'      => $faker->address(),
                     'ship_building'     => $faker->optional()->secondaryAddress(),

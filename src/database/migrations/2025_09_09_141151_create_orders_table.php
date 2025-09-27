@@ -21,7 +21,6 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('price');
             $table->enum('payment_method', ['コンビニ支払い', 'カード支払い']);
             $table->enum('payment_status', ['pending', 'paid', 'failed']);
-            $table->string('stripe_payment_intent_id', 100)->nullable();
             $table->char('ship_postal_code', 8);
             $table->string('ship_address');
             $table->string('ship_building')->nullable();

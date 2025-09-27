@@ -10,23 +10,23 @@
     <form class="form" action="{{ route('sell.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         {{-- 画像アップロード --}}
-        <p class="form__image-ttl">商品画像</p>
+        <p class="form__image-title">商品画像</p>
         <div class="form__image-wrapper">
             <div class="form__image" id="image-container">
                 <input id="image" type="file" name="image" hidden>
-                <label class="form__image-btn" for="image" id="image-label">画像を選択する</label>
+                <label class="form__image-button" for="image" id="image-label">画像を選択する</label>
                 <div class="form__image-preview" id="image-preview"></div>
             </div>
-            <button class="form__reset-btn" type="button" id="reset-btn" style="display: none">画像を選び直す</button>
+            <button class="form__reset-button" type="button" id="reset-button" style="display: none">画像を選び直す</button>
             @error('image')
             <p class="error">{{ $message }}</p>
             @enderror
         </div>
 
-        <h3 class="form__section-ttl">商品の詳細</h3>
+        <h3 class="form__section-title">商品の詳細</h3>
 
         {{-- カテゴリー --}}
-        <p class="form__category-ttl">カテゴリー</p>
+        <p class="form__category-title">カテゴリー</p>
         <div class="form__category-list">
             @foreach($categories as $category)
             <label class="form__category-label">
@@ -41,18 +41,20 @@
         @enderror
 
         {{-- 状態 --}}
-        <p class="form__condition-ttl">商品の状態</p>
+        <p class="form__condition-title">商品の状態</p>
         <div class="form__condition">
             <input type="hidden" name="condition" id="conditionValue" value="{{ old('condition') }}">
             <div class="form__condition-selectbox" id="conditionSelectbox">
                 <div class="form__condition-selected">
-                    {{ old('condition') !== null ? ['良好','目立った傷や汚れなし','やや傷や汚れあり','状態が悪い'][old('condition')] : '選択してください' }}
+                    {{ old('condition') !== null
+                    ? ['良好','目立った傷や汚れなし','やや傷や汚れあり','状態が悪い'][old('condition')]
+                    : '選択してください' }}
                 </div>
                 <ul class="form__condition-options">
-                    <li data-value="0">良好</li>
-                    <li data-value="1">目立った傷や汚れなし</li>
-                    <li data-value="2">やや傷や汚れあり</li>
-                    <li data-value="3">状態が悪い</li>
+                    <li class="form__condition-option" data-value="0">良好</li>
+                    <li class="form__condition-option" data-value="1">目立った傷や汚れなし</li>
+                    <li class="form__condition-option" data-value="2">やや傷や汚れあり</li>
+                    <li class="form__condition-option" data-value="3">状態が悪い</li>
                 </ul>
             </div>
             @error('condition')
@@ -60,28 +62,28 @@
             @enderror
         </div>
 
-        <h3 class="form__section-ttl">商品名と説明</h3>
+        <h3 class="form__section-title">商品名と説明</h3>
 
         {{-- その他のカラム --}}
-        <p class="form__name-ttl">商品名</p>
+        <p class="form__name-title">商品名</p>
         <input class="form__name" type="text" name="name" value="{{ old('name') }}">
         @error('name')
         <p class="error">{{ $message }}</p>
         @enderror
 
-        <p class="form__brand-ttl">ブランド名</p>
+        <p class="form__brand-title">ブランド名</p>
         <input class="form__brand" type="text" name="brand_name" value="{{ old('brand_name') }}">
         @error('brand_name')
         <p class="error">{{ $message }}</p>
         @enderror
 
-        <p class="form__description-ttl">商品の説明</p>
+        <p class="form__description-title">商品の説明</p>
         <textarea class="form__description" name="description">{{ old('description') }}</textarea>
         @error('description')
         <p class="error">{{ $message }}</p>
         @enderror
 
-        <p class="form__price-ttl">販売価格</p>
+        <p class="form__price-title">販売価格</p>
         <div class="form__price-wrapper">
             <div class="form__price-content">
                 <span class="form__price-symbol">¥</span>
@@ -103,28 +105,29 @@
 document.addEventListener("DOMContentLoaded", () => {
     const selectbox = document.getElementById('conditionSelectbox');
     const selected = selectbox.querySelector('.form__condition-selected');
-    const options = selectbox.querySelectorAll('.form__condition-options li');
+    const options = selectbox.querySelectorAll('.form__condition-option');
     const hiddenInput = document.getElementById('conditionValue');
 
     selected.addEventListener('click', () => {
-        selectbox.classList.toggle('open');
+        selectbox.classList.toggle('form__condition-selectbox--open');
     });
 
     options.forEach(opt => {
         opt.addEventListener('click', () => {
-            options.forEach(o => o.classList.remove('selected'));
-            opt.classList.add('selected');
+            options.forEach(o => o.classList.remove('form__condition-option--selected'));
+            opt.classList.add('form__condition-option--selected');
             selected.textContent = opt.textContent;
             hiddenInput.value = opt.dataset.value;
-            selectbox.classList.remove('open');
+            selectbox.classList.remove('form__condition-selectbox--open');
         });
     });
 });
 </script>
 
+
 {{-- 金額入力 --}}
 <script>
-(function () {
+    (function () {
     const el = document.getElementById('priceInput');
     if (!el) return;
     el.addEventListener('input', () => {
@@ -143,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const input = document.getElementById('image');
 const preview = document.getElementById('image-preview');
 const label = document.getElementById('image-label');
-const resetBtn = document.getElementById('reset-btn');
+const resetBtn = document.getElementById('reset-button');
 
 input.addEventListener('change', function() {
     preview.innerHTML = '';

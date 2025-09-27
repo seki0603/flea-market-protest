@@ -32,7 +32,7 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('email/verify', [VerificationController::class, 'notice'])->name('verification.notice');
-    Route::get('/email/verify/page', [VerificationController::class, 'site'])->name('verification.site');
+    Route::get('/email/verify/page', [VerificationController::class, 'page'])->name('verification.site');
     Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
     ->middleware(['signed'])->name('verification.verify');
 });

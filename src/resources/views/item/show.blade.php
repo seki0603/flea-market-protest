@@ -7,10 +7,10 @@
 @section('title', '商品詳細')
 
 @section('content')
-<div class="item">
+<div class="product">
     {{-- 商品画像 --}}
-    <div class="item__img-wrapper">
-        <img class="item__img" src="{{ asset('storage/'.$product->image_path) }}" alt="商品画像">
+    <div class="product__img-wrapper">
+        <img class="product__img" src="{{ asset('storage/'.$product->image_path) }}" alt="商品画像">
         @if($product->sold_at)
         <div class="sold-overlay">
             <span class="sold-text">Sold</span>
@@ -19,117 +19,112 @@
     </div>
 
     {{-- 商品詳細情報 --}}
-    <div class="item__detail">
-        <h2 class="item__name">{{ $product->name }}</h2>
-        <p class="item__brand">{{ $product->brand_name }}</p>
-        <p class="item__price">¥{{ number_format($product->price) }} <span class="item__tax">(税込)</span></p>
+    <div class="product__detail">
+        <h2 class="product__name">{{ $product->name }}</h2>
+        <p class="product__brand">{{ $product->brand_name }}</p>
+        <p class="product__price">¥{{ number_format($product->price) }} <span class="product__tax">(税込)</span></p>
 
         {{-- いいね --}}
-        <div class="item__icons">
-            <div class="item__icons-inner">
+        <div class="product__icons">
+            <div class="product__icon-group">
                 @verified
                 @if ($product->isLikedBy(Auth::user()))
                 <form action="{{ route('products.unlike', $product) }}" method="POST">
                     @csrf
                     @method('delete')
-                    <button class="like-btn" type="submit">
-                        <img class="like-btn__img" src="{{ asset('images/star-filled.png') }}" alt="いいね">
+                    <button class="like-button" type="submit">
+                        <img class="like-button__img" src="{{ asset('images/star-filled.png') }}" alt="いいね">
                     </button>
                 </form>
                 @else
                 <form action="{{ route('products.like', $product) }}" method="POST">
                     @csrf
-                    <button class="like-btn" type="submit">
-                        <img class="like-btn__img" src="{{ asset('images/star.png') }}" alt="いいね">
+                    <button class="like-button" type="submit">
+                        <img class="like-button__img" src="{{ asset('images/star.png') }}" alt="いいね">
                     </button>
                 </form>
                 @endif
                 @else
-                <a class="like-btn" href="{{ route('login') }}">
-                    <img class="like-btn__img" src="{{ asset('images/star.png') }}" alt="いいね">
+                <a class="like-button" href="{{ route('login') }}">
+                    <img class="like-button__img" src="{{ asset('images/star.png') }}" alt="いいね">
                 </a>
                 @endverified
-                <p class="like-count">{{ $product->likes->count() }}</p>
+                <p class="like-count">{{ $product->likes_count }}</p>
             </div>
             {{-- コメント --}}
-            <div class="item__icons-inner">
+            <div class="product__icon-group">
                 @auth
-                <form action="" method="POST">
-                    @csrf
-                    <div class="comment-btn">
-                        <img class="comment-btn__img" src="{{ asset('images/speechbuble.png') }}" alt="コメント">
-                    </div>
-                </form>
+                <div class="comment-icon">
+                    <img class="comment-icon__img" src="{{ asset('images/speechbuble.png') }}" alt="コメント">
+                </div>
                 @else
-                <div class="comment-btn">
-                    <img class="comment-btn__img" src="{{ asset('images/speechbuble.png') }}" alt="コメント">
+                <div class="comment-icon">
+                    <img class="comment-icon__img" src="{{ asset('images/speechbuble.png') }}" alt="コメント">
                 </div>
                 @endauth
-                <p class="comment-count">{{ $product->comments->count() }}</p>
+                <p class="comment-count">{{ $product->comments_count }}</p>
             </div>
         </div>
 
         {{-- 購入ボタン --}}
         @if ($product->sold_at)
-        <p class="item__sold-message">Sold Out</p>
+        <p class="product__sold-message">Sold Out</p>
         @else
-        <div class="item__buy">
+        <div class="product__buy">
             @verified
-            <a class="item__buy-btn" href="{{ route('purchase.create', ['item_id' => $product->id]) }}">購入手続きへ</a>
+            <a class="product__buy-button" href="{{ route('purchase.create', ['item_id' => $product->id]) }}">購入手続きへ</a>
             @else
-            <a class="item__buy-btn" href="{{ route('login') }}">購入手続きへ</a>
+            <a class="product__buy-button" href="{{ route('login') }}">購入手続きへ</a>
             @endverified
         </div>
         @endif
 
         {{-- 商品説明 --}}
-        <div class="item__section">
-            <h3 class="item__section-ttl">商品説明</h3>
-            <p class="item__description">{{ $product->description }}</p>
-        </div>
+        <h3 class="product__section-title">商品説明</h3>
+        <p class="product__description">{{ $product->description }}</p>
 
         {{-- 商品カテゴリ --}}
-        <h3 class="item__section-ttl">商品の情報</h3>
-        <div class="item__category-wrap">
-            <p class="item__category-ttl">カテゴリ</p>
-            <ul class="item__category-list">
+        <h3 class="product__section-title">商品の情報</h3>
+        <div class="product__category-wrapper">
+            <p class="product__category-title">カテゴリ</p>
+            <ul class="product__category-list">
                 @foreach($product->categories as $category)
-                <li class="item__category">{{ $category->name }}</li>
+                <li class="product__category">{{ $category->name }}</li>
                 @endforeach
             </ul>
         </div>
-        <div class="item__status-wrap">
-            <p class="item__status-ttl">商品の状態</p>
-            <p class="item__status">{{ $product->condition_label }}</p>
+        <div class="product__status-wrapper">
+            <p class="product__status-title">商品の状態</p>
+            <p class="product__status">{{ $product->condition_label }}</p>
         </div>
 
         {{-- コメント欄 --}}
-        <h3 class="item__section-ttl--gray">コメント ({{ $product->comments->count() }})</h3>
+        <h3 class="product__section-title--gray">コメント ({{ $product->comments->count() }})</h3>
 
         @foreach($product->comments as $comment)
-        <div class="item__comment">
-            <img class="item__comment-img" src="{{ asset('storage/' . ($comment->user->profile->avatar_path)) }}" alt="">
-            <p class="item__comment-user">{{ $comment->user->name}}</p>
+        <div class="product__comment">
+            <img class="product__comment-img" src="{{ asset('storage/' . ($comment->user->profile->avatar_path)) }}"
+                alt="">
+            <p class="product__comment-user">{{ $comment->user->name}}</p>
         </div>
-        <p class="item__comment-text">{{ $comment->body}}</p>
+        <p class="product__comment-text">{{ $comment->body}}</p>
         @endforeach
 
-        <p class="item__comment-ttl">商品へのコメント</p>
+        <p class="product__comment-title">商品へのコメント</p>
         @verified
-        <form id="comment-form" class="item__comment-form" action="{{ route('products.comments.store', $product->id) }}"
-            method="POST">
+        <form id="comment-form" action="{{ route('products.comments.store', $product->id) }}" method="POST">
             @csrf
-            <textarea class="item__comment-input" name="body">{{ old('body') }}</textarea>
+            <textarea class="product__comment-input" name="body">{{ old('body') }}</textarea>
             @error('body')
             <p class="error">{{ $message }}</p>
             @enderror
             @if (session('message'))
             <p class="success">{{ session('message') }}</p>
             @endif
-            <button class="item__comment-btn" type="submit">コメントを送信する</button>
+            <button class="product__comment-button" type="submit">コメントを送信する</button>
             @else
-            <textarea class="item__comment-input" name="body">{{ old('body') }}</textarea>
-            <a class="item__comment-btn" href="{{ route('login') }}">コメントを送信する</a>
+            <textarea class="product__comment-input" name="body">{{ old('body') }}</textarea>
+            <a class="product__comment-button" href="{{ route('login') }}">コメントを送信する</a>
             @endverified
         </form>
 

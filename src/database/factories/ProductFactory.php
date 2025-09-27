@@ -48,7 +48,6 @@ class ProductFactory extends Factory
                 'price'             => $product->price,
                 'payment_method'    => $faker->randomElement(['コンビニ支払い', 'カード支払い']),
                 'payment_status'    => 'paid',
-                'stripe_payment_intent_id' => null,
                 'ship_postal_code'  => $faker->numerify('###-####'),
                 'ship_address'      => $faker->address(),
                 'ship_building'     => $faker->optional()->secondaryAddress(),

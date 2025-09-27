@@ -11,7 +11,7 @@
             <img class="profile__img" src="{{ asset('storage/' . $user->profile->avatar_path) }}" alt="プロフィール画像">
             <h2 class="profile__name">{{ $user->name }}</h2>
         </div>
-        <a class="profile__btn" href="{{ route('profile.edit') }}">プロフィールを編集</a>
+        <a class="profile__button" href="{{ route('profile.edit') }}">プロフィールを編集</a>
     </div>
     @if (session('message'))
     <p class="success">{{ session('message') }}</p>
@@ -20,8 +20,8 @@
 
 <div class="tab__wrapper">
     <div class="tab">
-        <a class="tab__link {{ $tab === 'sell' ? 'active' : '' }}" href="?tab=sell">出品した商品</a>
-        <a class="tab__link {{ $tab === 'buy' ? 'active' : '' }}" href="?tab=buy">購入した商品</a>
+        <a class="tab__link {{ $tab === 'sell' ? 'tab__link--active' : '' }}" href="?tab=sell">出品した商品</a>
+        <a class="tab__link {{ $tab === 'buy' ? 'tab__link--active' : '' }}" href="?tab=buy">購入した商品</a>
     </div>
 </div>
 

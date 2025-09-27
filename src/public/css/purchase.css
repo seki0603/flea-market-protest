@@ -48,7 +48,7 @@
     border-bottom: 1px solid #000;
 }
 
-.payment__ttl {
+.payment__title {
     font-size: 20px;
     font-weight: bold;
     padding-bottom: 20px;
@@ -60,7 +60,7 @@
     margin: 0 60px;
 }
 
-.payment-selectbox {
+.payment__selectbox {
     width: 100%;
     border: 1px solid #5f5f5f;
     border-radius: 6px;
@@ -72,7 +72,7 @@
     margin-bottom: 40px;
 }
 
-.payment-selectbox::after {
+.payment__selectbox::after {
     content: "▼";
     position: absolute;
     top: 30%;
@@ -83,18 +83,18 @@
     transform: translate(0, -30%);
 }
 
-.payment-selected {
+.payment__selected {
     padding: 0 12px;
     height: 30px;
     line-height: 30px;
     color: #636769;
 }
 
-.payment-selectbox.open {
+.payment__selectbox--open {
     border: none;
 }
 
-.payment-options {
+.payment__options {
     display: none;
     flex-direction: column;
     position: absolute;
@@ -110,7 +110,7 @@
     padding: 0;
 }
 
-.payment-options li {
+.payment__option {
     height: 30px;
     line-height: 30px;
     font-size: 12px;
@@ -121,27 +121,28 @@
     color: #eaeaea;
 }
 
-.payment-options li::before {
+.payment__option::before {
     content: "";
     display: inline-block;
     width: 10px;
     text-align: center;
 }
 
-.payment-options li.selected {
+.payment__option--selected {
     background: #5599eb;
     border-radius: 6px;
     margin: 5px;
 }
 
-.payment-options li.selected::before {
+.payment__option--selected::before {
     content: "✓";
     color: #fff;
 }
 
-.payment-selectbox.open .payment-options {
+.payment__selectbox--open .payment__options {
     display: flex;
 }
+
 
 .error {
     font-size: 20px;
@@ -161,7 +162,7 @@
     margin-bottom: 10px;
 }
 
-.ship-address__ttl {
+.ship-address__title {
     font-size: 20px;
     font-weight: bold;
 }

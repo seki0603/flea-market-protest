@@ -8,7 +8,6 @@
 <form class="content" action="{{ route('purchase.store', $product->id) }}" method="POST">
     @csrf
     <div class="select-content">
-
         <div class="product">
             <img class="product__img" src="{{ asset('storage/'.$product->image_path) }}" alt="商品画像">
             <div class="product__inner">
@@ -21,16 +20,16 @@
         </div>
 
         <div class="payment">
-            <h3 class="payment__ttl">支払い方法</h3>
+            <h3 class="payment__title">支払い方法</h3>
             <div class="payment__inner">
                 <input type="hidden" name="payment_method" id="paymentMethodValue" value="{{ old('payment_method') }}">
-                <div class="payment-selectbox" id="paymentSelectbox">
-                    <div class="payment-selected">
+                <div class="payment__selectbox" id="paymentSelectbox">
+                    <div class="payment__selected">
                         {{ old('payment_method') ?? '選択してください' }}
                     </div>
-                    <ul class="payment-options">
-                        <li data-value="コンビニ支払い">コンビニ払い</li>
-                        <li data-value="カード支払い">カード支払い</li>
+                    <ul class="payment__options">
+                        <li class="payment__option" data-value="コンビニ支払い">コンビニ払い</li>
+                        <li class="payment__option" data-value="カード支払い">カード支払い</li>
                     </ul>
                 </div>
                 @error('payment_method')
@@ -41,7 +40,7 @@
 
         <div class="ship-address">
             <div class="ship-address__header">
-                <h3 class="ship-address__ttl">配送先</h3>
+                <h3 class="ship-address__title">配送先</h3>
                 <a class="ship-address__change" href="{{ route('purchase.address', $product->id) }}">変更する</a>
             </div>
             <div class="ship-address__inner">
@@ -84,21 +83,21 @@
 @section('script')
 {{-- カスタムセレクト --}}
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     const selectbox = document.getElementById('paymentSelectbox');
-    const selected = selectbox.querySelector('.payment-selected');
-    const options = selectbox.querySelectorAll('.payment-options li');
+    const selected = selectbox.querySelector('.payment__selected');
+    const options = selectbox.querySelectorAll('.payment__option');
     const hiddenInput = document.getElementById('paymentMethodValue');
     const paymentText = document.getElementById('paymentMethodText');
 
     selected.addEventListener('click', () => {
-        selectbox.classList.toggle('open');
+        selectbox.classList.toggle('payment__selectbox--open');
     });
 
     options.forEach(opt => {
         opt.addEventListener('click', () => {
-            options.forEach(o => o.classList.remove('selected'));
-            opt.classList.add('selected');
+            options.forEach(o => o.classList.remove('payment__option--selected'));
+            opt.classList.add('payment__option--selected');
             selected.textContent = opt.textContent;
             hiddenInput.value = opt.dataset.value;
 
@@ -106,7 +105,7 @@
                 paymentText.textContent = opt.textContent;
             }
 
-            selectbox.classList.remove('open');
+            selectbox.classList.remove('payment__selectbox--open');
         });
     });
 });

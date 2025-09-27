@@ -39,7 +39,14 @@ class ItemController extends Controller
 
     public function show($id)
     {
-        $product = Product::with(['seller', 'buyer', 'categories', 'comments', 'comments.user'])->findOrFail($id);
+        $product = Product::with([
+            'categories',
+            'likes', // isLikedBy で使う可能性があるので残す
+            'comments.user.profile',
+        ])
+            ->withCount(['likes', 'comments'])
+            ->findOrFail($id);
+
         return view('item.show', compact('product'));
     }
 }

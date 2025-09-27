@@ -11,7 +11,7 @@ class VerificationController extends Controller
         return view('auth.verify-email');
     }
 
-    public function site()
+    public function page()
     {
         return view('auth.verify-email-page');
     }
