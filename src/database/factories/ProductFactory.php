@@ -13,23 +13,29 @@ class ProductFactory extends Factory
 
     public function definition()
     {
-        // 日本語ロケールは $this->faker が内部的に保持（ja_JP を使うなら FactoryServiceProvider 側で設定 or そのままでもOK）
         $names  = ['腕時計', 'ノートパソコン', 'スニーカー', '漫画セット', 'ギター', '掃除機', 'イヤホン', '冷蔵庫', 'カメラ', 'ジャケット'];
         $brands = ['ソニー', 'パナソニック', 'シャープ', 'ユニクロ', 'ナイキ', 'アディダス', '任天堂', '富士通', '東芝', 'なし', ''];
+        $descriptions = [
+            'ほとんど使用していないため状態は良好です。',
+            '動作確認済みですが、中古品のためご理解ください。',
+            '新品未使用です。即購入歓迎します。',
+            '箱付きでお届けします。',
+            '多少の傷がありますが、使用には問題ありません。',
+        ];
 
         return [
             'seller_id'   => User::inRandomOrder()->first()->id ?? User::factory(),
             'name'        => $this->faker->randomElement($names),
             'brand_name'  => $this->faker->randomElement($brands),
             'price'       => $this->faker->numberBetween(500, 20000),
-            'condition'   => $this->faker->numberBetween(0, 3), // あなたのスキーマに合わせる
-            'description' => $this->faker->realText(50),
+            'condition'   => $this->faker->numberBetween(0, 3),
+            'description' => $this->faker->randomElement($descriptions),
             'image_path'  => 'products/sample' . $this->faker->numberBetween(1, 5) . '.png',
         ];
     }
 
     /**
-     * 購入済みにする（生成時に buyer_id / sold_at を確定）
+     * 購入済みにする
      */
     public function purchasedBy(User $buyer)
     {

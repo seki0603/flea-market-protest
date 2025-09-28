@@ -18,7 +18,7 @@
         @endif
     </div>
 
-    {{-- 商品詳細情報 --}}
+    {{-- 商品情報 --}}
     <div class="product__detail">
         <h2 class="product__name">{{ $product->name }}</h2>
         <p class="product__brand">{{ $product->brand_name }}</p>
@@ -112,7 +112,7 @@
 
         <p class="product__comment-title">商品へのコメント</p>
         @verified
-        <form id="comment-form" action="{{ route('products.comments.store', $product->id) }}" method="POST">
+        <form id="comment-form" action="{{ route('products.comments.store', $product->id) }}" method="POST" novalidate>
             @csrf
             <textarea class="product__comment-input" name="body">{{ old('body') }}</textarea>
             @error('body')

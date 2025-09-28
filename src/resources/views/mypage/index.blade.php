@@ -8,7 +8,7 @@
 <div class="mypage">
     <div class="mypage__profile">
         <div class="profile__inner">
-            <img class="profile__img" src="{{ asset('storage/' . $user->profile->avatar_path) }}" alt="プロフィール画像">
+            <img class="profile__img" src="{{ asset('storage/' . $user->profile->avatar_path) }}" alt="">
             <h2 class="profile__name">{{ $user->name }}</h2>
         </div>
         <a class="profile__button" href="{{ route('profile.edit') }}">プロフィールを編集</a>
@@ -18,6 +18,7 @@
     @endif
 </div>
 
+{{-- タブ切り替え --}}
 <div class="tab__wrapper">
     <div class="tab">
         <a class="tab__link {{ $tab === 'sell' ? 'tab__link--active' : '' }}" href="?tab=sell">出品した商品</a>

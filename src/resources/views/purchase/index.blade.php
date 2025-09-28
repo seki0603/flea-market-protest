@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<form class="content" action="{{ route('purchase.store', $product->id) }}" method="POST">
+<form class="content" action="{{ route('purchase.store', $product->id) }}" method="POST" novalidate>
     @csrf
     <div class="select-content">
         <div class="product">
@@ -28,7 +28,7 @@
                         {{ old('payment_method') ?? '選択してください' }}
                     </div>
                     <ul class="payment__options">
-                        <li class="payment__option" data-value="コンビニ支払い">コンビニ払い</li>
+                        <li class="payment__option" data-value="コンビニ支払い">コンビニ支払い</li>
                         <li class="payment__option" data-value="カード支払い">カード支払い</li>
                     </ul>
                 </div>

@@ -22,7 +22,7 @@
     <main>
         <div class="content">
             <h2 class="content__title">会員登録</h2>
-            <form class="form" action="{{ route('register.store') }}" method="POST">
+            <form class="form" action="{{ route('register.store') }}" method="POST" novalidate>
                 @csrf
                 <div class="form__item">
                     <label class="form__item-label">ユーザー名</label>

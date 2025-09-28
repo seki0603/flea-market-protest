@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\Like;
 use App\Models\ProductComment;
+use App\Models\Order;
 
 class ProductsTableSeeder extends Seeder
 {
@@ -119,8 +120,8 @@ class ProductsTableSeeder extends Seeder
         // いいね：各ユーザー 5件
         $users = User::all();
         foreach ($users as $user) {
-            $liked = $createdProducts->random(min(5, $createdProducts->count()));
-            foreach ($liked as $product) {
+            $likedProducts = $createdProducts->random(min(5, $createdProducts->count()));
+            foreach ($likedProducts as $product) {
                 Like::firstOrCreate([
                     'user_id'    => $user->id,
                     'product_id' => $product->id,
@@ -134,21 +135,24 @@ class ProductsTableSeeder extends Seeder
             if ($candidates->isEmpty()) continue;
 
             $toBuy = $candidates->random(min(2, $candidates->count()));
-            foreach ($toBuy as $p) {
-                $p->update(['buyer_id' => $buyer->id, 'sold_at' => now()]);
+            foreach ($toBuy as $product) {
+                $product->update([
+                    'buyer_id' => $buyer->id,
+                    'sold_at' => now()
+                ]);
                 // Order を合わせて作成
-                \App\Models\Order::create([
-                    'product_id'        => $p->id,
-                    'buyer_id'          => $buyer->id,
-                    'seller_id'         => $p->seller_id,
-                    'price'             => $p->price,
-                    'payment_method'    => 'カード支払い',
-                    'payment_status'    => 'paid',
-                    'ship_postal_code'  => $faker->numerify('###-####'),
-                    'ship_address'      => $faker->address(),
-                    'ship_building'     => $faker->optional()->secondaryAddress(),
-                    'ordered_at'        => now(),
-                    'paid_at'           => now(),
+                Order::create([
+                    'product_id' => $product->id,
+                    'buyer_id' => $buyer->id,
+                    'seller_id' => $product->seller_id,
+                    'price' => $product->price,
+                    'payment_method' => 'カード支払い',
+                    'payment_status' => 'paid',
+                    'ship_postal_code' => $faker->numerify('###-####'),
+                    'ship_address' => $faker->address(),
+                    'ship_building' => $faker->optional()->secondaryAddress(),
+                    'ordered_at' => now(),
+                    'paid_at' => now(),
                 ]);
             }
         }

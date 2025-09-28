@@ -22,7 +22,7 @@
             <form class="header__form" action="{{ route('items.index') }}" method="GET">
                 <input class="header__form-input" type="text" name="keyword" value="{{ request('keyword') }}"
                     placeholder="なにをお探しですか？">
-                <button class="header__form-btn" type="submit">検索</button>
+                <button class="header__form-button" type="submit">検索</button>
             </form>
             <div class="header__link">
 
@@ -35,14 +35,14 @@
                 @auth
                 @if(Auth::user()->hasVerifiedEmail())
                 {{-- 認証済みログイン --}}
-                <form class="header__btn" action="{{ route('logout') }}" method="POST">
+                <form class="header__button" action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button class="header__btn-logout" type="submit">ログアウト</button>
+                    <button class="header__button-logout" type="submit">ログアウト</button>
                 </form>
                 <a class="header__link-mypage" href="{{ route('profile.index') }}">マイページ</a>
                 <a class="header__link-purchase" href="{{ route('sell.index') }}">出品</a>
                 @else
-                {{-- 未認証ログインは未ログイン扱いと同じ表示にする --}}
+                {{-- 未認証ログイン --}}
                 <a class="header__link-login" href="{{ route('login') }}">ログイン</a>
                 <a class="header__link-mypage" href="{{ route('login') }}">マイページ</a>
                 <a class="header__link-purchase" href="{{ route('login') }}">出品</a>

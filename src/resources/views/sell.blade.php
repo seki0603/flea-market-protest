@@ -7,7 +7,7 @@
 @section('content')
 <div class="form__wrapper">
     <h2 class="form__ttl">商品の出品</h2>
-    <form class="form" action="{{ route('sell.store') }}" method="POST" enctype="multipart/form-data">
+    <form class="form" action="{{ route('sell.store') }}" method="POST" enctype="multipart/form-data" novalidate>
         @csrf
         {{-- 画像アップロード --}}
         <p class="form__image-title">商品画像</p>
@@ -123,7 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 </script>
-
 
 {{-- 金額入力 --}}
 <script>

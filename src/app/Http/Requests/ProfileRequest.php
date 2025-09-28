@@ -38,7 +38,7 @@ class ProfileRequest extends FormRequest
             'avatar.image' => 'プロフィール画像は.jpegまたは.png形式でアップロードしてください',
             'avatar.mimes' => 'プロフィール画像は.jpegまたは.png形式でアップロードしてください',
             'name.required' => 'ユーザー名を入力してください',
-            'name.max' => 'ユーザー名は20文字以内で入力してください',
+            'name.max' => 'ユーザー名は20文字以下で入力してください',
             'postal_code.required' => '郵便番号を入力してください',
             'postal_code.regex' => '郵便番号は123-4567の形式で入力してください',
             'address.required' => '住所を入力してください'

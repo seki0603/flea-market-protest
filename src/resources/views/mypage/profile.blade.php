@@ -10,7 +10,7 @@
     <p class="success">{{ session('message') }}</p>
     @endif
     <h2 class="form__title">プロフィール設定</h2>
-    <form class="form" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+    <form class="form" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" novalidate>
         @csrf
         @method('patch')
 
@@ -19,7 +19,7 @@
                 <div class="form__avatar-preview">
                     @if($user->profile?->avatar_path)
                     <img class="form__avatar-img" id="avatarPreview"
-                        src="{{ asset('storage/' . $user->profile->avatar_path) }}" alt="プロフィール画像">
+                        src="{{ asset('storage/' . $user->profile->avatar_path) }}" alt="">
                     @else
                     <img class="form__avatar-img" id="avatarPreview" style="display:none;">
                     @endif

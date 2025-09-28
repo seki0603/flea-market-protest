@@ -22,7 +22,7 @@
             <p class="content__text">登録していただいたメールアドレスに認証メールを送付しました。<br>
                 メース認証を完了してください。</p>
             <a href="{{ route('verification.site') }}">
-                <button class="content__btn" type="submit">認証はこちらから</button>
+                <button class="content__button" type="submit">認証はこちらから</button>
             </a>
             <form action="{{ route('verification.send') }}" method="POST">
                 @csrf

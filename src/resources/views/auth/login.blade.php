@@ -22,7 +22,7 @@
     <main>
         <div class="content">
             <h2 class="content__title">ログイン</h2>
-            <form class="form" action="{{ route('login') }}" method="POST">
+            <form class="form" action="{{ route('login') }}" method="POST" novalidate>
                 @csrf
                 <div class="form__item">
                     <label class="form__item-label">メールアドレス</label>
