@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             UserProfilesTableSeeder::class,
             CategoriesTableSeeder::class,
             ProductsTableSeeder::class,
-            DummyProductsSeeder::class,
+            // DummyProductsSeeder::class,
         ]);
 
         $products = Product::all();
