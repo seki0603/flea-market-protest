@@ -23,6 +23,34 @@
 7. php artisan db:seed
    <br>
 
+### Stripe 接続
+
+.env 及び.env.testing に Stripe テストキーを記載してください。  
+実際のテストキーは案件シートの基本設計書ページ最下部に記載しています。  
+案件シートへは README 最下部記載の URL からアクセス可能です。
+
+```
+公開キー（STRIPE_KEY）: pk_test_xxxxx...
+シークレットキー（STRIPE_SECRET）: sk_test_xxxxx...
+```
+
+<br>
+
+### テスト実行方法
+
+.env.testing の DB_PASSWORD に docker-compose.yml 記載の MYSQL_ROOT_PASSWORD 記述し、  
+プロジェクトディレクトリ直下で実行してください。
+
+1. docker-compose exec mysql bash
+2. mysql -u root -p
+3. docker-compose.yml 記載の MYSQL_ROOT_PASSWORD を入力
+4. CREATE DATABASE laravel_test;
+5. MySQL コンテナから抜ける
+6. docker-compose exec php bash
+7. php artisan key:generate --env=testing
+8. vendor/bin/phpunit
+   <br>
+
 ## 使用技術
 
 - PHP 8.1.3
@@ -105,8 +133,4 @@ MailHog にて実装しています。
 - 開発環境：http://localhost/
 - phpMyAdmin：http://localhost:8080/
 - MailHog : http://localhost:8025/
-
-## 要件シート
-
-- GitHub 内 Excel : docs/requirements.xlsx
-- Google スプレッドシート : https://docs.google.com/spreadsheets/d/1zicFKHZg867c-sDSzqEwH6PBJuir5okUgYe7ncBSdtM/edit?gid=1113232830#gid=1113232830
+- 案件シート : https://docs.google.com/spreadsheets/d/1zicFKHZg867c-sDSzqEwH6PBJuir5okUgYe7ncBSdtM/edit?gid=1113232830#gid=1113232830
