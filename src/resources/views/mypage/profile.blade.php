@@ -9,7 +9,7 @@
     @if (session('message'))
     <p class="success">{{ session('message') }}</p>
     @endif
-    <h2 class="form__title">プロフィール設定</h2>
+    <h1 class="form__title">プロフィール設定</h1>
     <form class="form" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" novalidate>
         @csrf
         @method('patch')

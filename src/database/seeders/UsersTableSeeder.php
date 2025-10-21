@@ -24,7 +24,7 @@ class UsersTableSeeder extends Seeder
         User::create([
             'id' => 1,
             'name' => '山田太郎',
-            'email' => 'taro@example.com',
+            'email' => 'test1@example.com',
             'password' => Hash::make('password123'),
             'email_verified_at' => now(),
         ]);
@@ -32,7 +32,7 @@ class UsersTableSeeder extends Seeder
         User::create([
             'id' => 2,
             'name' => '鈴木花子',
-            'email' => 'hanako@example.com',
+            'email' => 'test2@example.com',
             'password' => Hash::make('password123'),
             'email_verified_at' => now(),
         ]);
@@ -40,7 +40,7 @@ class UsersTableSeeder extends Seeder
         User::create([
             'id' => 3,
             'name' => '佐藤次郎',
-            'email' => 'jiro@example.com',
+            'email' => 'test3@example.com',
             'password' => Hash::make('password123'),
             'email_verified_at' => now(),
         ]);

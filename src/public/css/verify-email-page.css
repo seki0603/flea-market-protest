@@ -40,6 +40,14 @@
     background: none;
     border: none;
     font-size: 20px;
-    color: #0073CC;
+    color: #0073cc;
     cursor: pointer;
+}
+
+.visually-hidden {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
 }

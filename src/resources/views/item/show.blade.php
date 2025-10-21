@@ -10,7 +10,8 @@
 <div class="product">
     {{-- 商品画像 --}}
     <div class="product__img-wrapper">
-        <img class="product__img" src="{{ asset('storage/'.$product->image_path) }}" alt="商品画像">
+        <img class="product__img" src="{{ \Illuminate\Support\Str::startsWith($product->image_path, 'http')
+    ? $product->image_path : asset('storage/'.$product->image_path) }}" alt="商品画像">
         @if($product->sold_at)
         <div class="sold-overlay">
             <span class="sold-text">Sold</span>
@@ -20,6 +21,7 @@
 
     {{-- 商品情報 --}}
     <div class="product__detail">
+        <h1 class="visually-hidden">商品詳細画面</h1>
         <h2 class="product__name">{{ $product->name }}</h2>
         <p class="product__brand">{{ $product->brand_name }}</p>
         <p class="product__price">¥{{ number_format($product->price) }} <span class="product__tax">(税込)</span></p>

@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="form__wrapper">
-    <h2 class="form__ttl">商品の出品</h2>
+    <h1 class="form__title">商品の出品</h1>
     <form class="form" action="{{ route('sell.store') }}" method="POST" enctype="multipart/form-data" novalidate>
         @csrf
         {{-- 画像アップロード --}}
@@ -23,7 +23,7 @@
             @enderror
         </div>
 
-        <h3 class="form__section-title">商品の詳細</h3>
+        <h2 class="form__section-title">商品の詳細</h2>
 
         {{-- カテゴリー --}}
         <p class="form__category-title">カテゴリー</p>
@@ -62,7 +62,7 @@
             @enderror
         </div>
 
-        <h3 class="form__section-title">商品名と説明</h3>
+        <h2 class="form__section-title">商品名と説明</h2>
 
         {{-- その他のカラム --}}
         <p class="form__name-title">商品名</p>
@@ -83,7 +83,7 @@
         <p class="error">{{ $message }}</p>
         @enderror
 
-        <p class="form__price-title">販売価格</p>
+        <h2 class="form__price-title">販売価格</h2>
         <div class="form__price-wrapper">
             <div class="form__price-content">
                 <span class="form__price-symbol">¥</span>

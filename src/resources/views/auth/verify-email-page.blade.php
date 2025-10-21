@@ -19,6 +19,7 @@
 
     <main>
         <div class="content">
+            <h1 class="visually-hidden">メール認証画面</h1>
             <p class="content__text">メール内のリンクをクリックしてください。<br>
                 認証が完了すると自動的にプロフィール設定画面へ遷移します。</p>
 

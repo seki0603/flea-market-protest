@@ -8,10 +8,12 @@
 <form class="content" action="{{ route('purchase.store', $product->id) }}" method="POST" novalidate>
     @csrf
     <div class="select-content">
+        <h1 class="visually-hidden">商品購入画面</h1>
         <div class="product">
-            <img class="product__img" src="{{ asset('storage/'.$product->image_path) }}" alt="商品画像">
+            <img class="product__img" src="{{ \Illuminate\Support\Str::startsWith($product->image_path, 'http')
+    ? $product->image_path : asset('storage/'.$product->image_path) }}" alt="商品画像">
             <div class="product__inner">
-                <h3 class="product__name">{{ $product->name }}</h3>
+                <h2 class="product__name">{{ $product->name }}</h2>
                 <p class="product__price">
                     <span class="product__price--span">¥</span>
                     {{ number_format($product->price) }}
@@ -20,7 +22,7 @@
         </div>
 
         <div class="payment">
-            <h3 class="payment__title">支払い方法</h3>
+            <h2 class="payment__title">支払い方法</h2>
             <div class="payment__inner">
                 <input type="hidden" name="payment_method" id="paymentMethodValue" value="{{ old('payment_method') }}">
                 <div class="payment__selectbox" id="paymentSelectbox">
@@ -40,7 +42,7 @@
 
         <div class="ship-address">
             <div class="ship-address__header">
-                <h3 class="ship-address__title">配送先</h3>
+                <h2 class="ship-address__title">配送先</h2>
                 <a class="ship-address__change" href="{{ route('purchase.address', $product->id) }}">変更する</a>
             </div>
             <div class="ship-address__inner">

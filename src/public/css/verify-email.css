@@ -35,7 +35,7 @@
     height: 70px;
     font-size: 24px;
     font-weight: bold;
-    background: #D9D9D9;
+    background: #d9d9d9;
     border: 1px solid #000000;
     border-radius: 10px;
     cursor: pointer;
@@ -46,6 +46,14 @@
     background: none;
     border: none;
     font-size: 20px;
-    color: #0073CC;
+    color: #0073cc;
     cursor: pointer;
+}
+
+.visually-hidden {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
 }

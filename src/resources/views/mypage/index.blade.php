@@ -6,10 +6,11 @@
 
 @section('content')
 <div class="mypage">
+    <h1 class="visually-hidden">プロフィール編集画面</h1>
     <div class="mypage__profile">
         <div class="profile__inner">
             <img class="profile__img" src="{{ asset('storage/' . $user->profile->avatar_path) }}" alt="">
-            <h2 class="profile__name">{{ $user->name }}</h2>
+            <p class="profile__name">{{ $user->name }}</p>
         </div>
         <a class="profile__button" href="{{ route('profile.edit') }}">プロフィールを編集</a>
     </div>
@@ -31,7 +32,8 @@
     @foreach($sellProducts as $product)
     <div class="product">
         <div class="product__img-wrapper">
-            <img class="product__img" src="{{ asset('storage/'.$product->image_path) }}" alt="商品画像">
+            <img class="product__img" src="{{ \Illuminate\Support\Str::startsWith($product->image_path, 'http')
+    ? $product->image_path : asset('storage/'.$product->image_path) }}" alt="商品画像">
             {{-- Sold判定 --}}
             @if($product->sold_at)
             <div class="sold-overlay">
@@ -49,7 +51,8 @@
 <div class="products">
     @foreach($buyProducts as $product)
     <div class="product">
-        <img class="product__img" src="{{ asset('storage/'.$product->image_path) }}" alt="商品画像">
+        <img class="product__img" src="{{ \Illuminate\Support\Str::startsWith($product->image_path, 'http')
+    ? $product->image_path : asset('storage/'.$product->image_path) }}" alt="商品画像">
         <p class="product__name">{{ $product->name }}</p>
     </div>
     @endforeach

@@ -22,7 +22,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => 15000,
                 'brand_name' => 'Rolax',
                 'description' => 'スタイリッシュなデザインのメンズ腕時計',
-                'image_path' => 'products/Clock.jpg',
+                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg',
                 'condition' => 0
             ],
             [
@@ -30,7 +30,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => 5000,
                 'brand_name' => '西芝',
                 'description' => '高速で信頼性の高いハードディスク',
-                'image_path' => 'products/HDD.jpg',
+                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/HDD+Hard+Disk.jpg',
                 'condition' => 1
             ],
             [
@@ -38,7 +38,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => 300,
                 'brand_name' => 'なし',
                 'description' => '新鮮な玉ねぎ3束のセット',
-                'image_path' => 'products/Onion.jpg',
+                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/iLoveIMG+d.jpg',
                 'condition' => 2
             ],
             [
@@ -46,7 +46,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => 4000,
                 'brand_name' => '',
                 'description' => 'クラシックなデザインの革靴',
-                'image_path' => 'products/Shoes.jpg',
+                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Leather+Shoes+Product+Photo.jpg',
                 'condition' => 3
             ],
             [
@@ -54,7 +54,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => 45000,
                 'brand_name' => '',
                 'description' => '高性能なノートパソコン',
-                'image_path' => 'products/Laptop.jpg',
+                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Living+Room+Laptop.jpg',
                 'condition' => 0
             ],
             [
@@ -62,7 +62,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => 8000,
                 'brand_name' => 'なし',
                 'description' => '高音質のレコーディング用マイク',
-                'image_path' => 'products/Mic.jpg',
+                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Music+Mic+4632231.jpg',
                 'condition' => 1
             ],
             [
@@ -70,7 +70,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => 3500,
                 'brand_name' => '',
                 'description' => 'おしゃれなショルダーバッグ',
-                'image_path' => 'products/Pocket.jpg',
+                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Purse+fashion+pocket.jpg',
                 'condition' => 2
             ],
             [
@@ -78,7 +78,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => 500,
                 'brand_name' => 'なし',
                 'description' => '使いやすいタンブラー',
-                'image_path' => 'products/Tumbler.jpg',
+                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Tumbler+souvenir.jpg',
                 'condition' => 3
             ],
             [
@@ -86,7 +86,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => 4000,
                 'brand_name' => 'Starbacks',
                 'description' => '手動のコーヒーミル',
-                'image_path' => 'products/Coffee.jpg',
+                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Waitress+with+Coffee+Grinder.jpg',
                 'condition' => 0
             ],
             [
@@ -94,7 +94,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => 2500,
                 'brand_name' => '',
                 'description' => '便利なメイクアップセット',
-                'image_path' => 'products/Makeup.jpg',
+                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/%E5%A4%96%E5%87%BA%E3%83%A1%E3%82%A4%E3%82%AF%E3%82%A2%E3%83%83%E3%83%95%E3%82%9A%E3%82%BB%E3%83%83%E3%83%88.jpg',
                 'condition' => 1
             ],
         ];
