@@ -24,6 +24,7 @@ class CreateOrdersTable extends Migration
             $table->char('ship_postal_code', 8);
             $table->string('ship_address');
             $table->string('ship_building')->nullable();
+            $table->enum('status', ['取引中', '取引完了'])->default('取引中');
             $table->timestamp('ordered_at');
             $table->timestamp('paid_at')->nullable();
         });

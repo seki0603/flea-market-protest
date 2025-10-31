@@ -9,6 +9,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,4 +55,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'address'])->name('purchase.address');
     Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');
     Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
+
+    Route::get('/chat/{room}', [ChatController::class, 'index'])->name('chat.index');
 });

@@ -24,6 +24,7 @@
     <div class="tab">
         <a class="tab__link {{ $tab === 'sell' ? 'tab__link--active' : '' }}" href="?tab=sell">出品した商品</a>
         <a class="tab__link {{ $tab === 'buy' ? 'tab__link--active' : '' }}" href="?tab=buy">購入した商品</a>
+        <a class="tab__link {{ $tab === 'trading' ? 'tab__link--active' : '' }}" href="?tab=trading">取引中の商品</a>
     </div>
 </div>
 
@@ -53,6 +54,19 @@
     <div class="product">
         <img class="product__img" src="{{ \Illuminate\Support\Str::startsWith($product->image_path, 'http')
     ? $product->image_path : asset('storage/'.$product->image_path) }}" alt="商品画像">
+        <p class="product__name">{{ $product->name }}</p>
+    </div>
+    @endforeach
+</div>
+@endif
+
+@if ($tab === 'trading')
+<div class="products">
+    @foreach($tradingProducts as $product)
+    <div class="product">
+        <a href="{{ route('chat.index', $product->order->chatRoom->id ?? '#') }}">
+            <img class="product__img" src="{{ \Illuminate\Support\Str::startsWith($product->image_path, 'http') ? $product->image_path : asset('storage/'.$product->image_path) }}" alt="商品画像">
+        </a>
         <p class="product__name">{{ $product->name }}</p>
     </div>
     @endforeach

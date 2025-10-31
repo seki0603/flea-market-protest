@@ -119,3 +119,58 @@
     height: 1px;
     overflow: hidden;
 }
+
+
+@media (max-width: 850px) {
+    .header__inner {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 10px 20px;
+        justify-content: center;
+    }
+
+    .header__logo {
+        width: 200px;
+        margin-bottom: 10px;
+    }
+
+    .header__form {
+        width: 80%;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .header__form-input {
+        width: 60%;
+        font-size: 18px;
+        height: 40px;
+        padding-left: 15px;
+    }
+
+    .header__form-button {
+        width: 25%;
+        font-size: 18px;
+        height: 40px;
+    }
+
+    .header__link {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .header__link-login,
+    .header__link-mypage,
+    .header__button-logout,
+    .header__link-purchase {
+        font-size: 18px;
+        width: auto;
+        margin: 0 10px;
+    }
+
+    .header__link-purchase {
+        padding: 5px 15px;
+        margin-left: 0;
+    }
+}

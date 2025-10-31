@@ -20,6 +20,7 @@ class CreateUserProfilesTable extends Migration
             $table->char('postal_code', 8);
             $table->string('address');
             $table->string('building')->nullable();
+            $table->decimal('average_rating', 3, 1)->nullable();
             $table->timestamps();
         });
     }

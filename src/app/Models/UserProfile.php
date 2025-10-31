@@ -15,6 +15,7 @@ class UserProfile extends Model
         'postal_code',
         'address',
         'building',
+        'average_rating',
     ];
 
     // リレーション

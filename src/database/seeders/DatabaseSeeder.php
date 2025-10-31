@@ -19,8 +19,10 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             UserProfilesTableSeeder::class,
             CategoriesTableSeeder::class,
-            ProductsTableSeeder::class,
+            // ProductsTableSeeder::class,
             // DummyProductsSeeder::class,
+            ProProductsSeeder::class,
+            ProOrdersSeeder::class,
         ]);
 
         $products = Product::all();

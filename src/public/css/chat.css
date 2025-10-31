@@ -1,0 +1,54 @@
+.header {
+    background: #000;
+}
+
+.header__inner {
+    max-width: 1400px;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header__logo {
+    width: 370px;
+    height: 36px;
+}
+
+.main {
+    background: #868686;
+}
+
+.main__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    background-color: #fff;
+}
+
+.sidebar {
+    width: 20%;
+    height: 100vh;
+    background: #868686;
+    text-align: center;
+}
+
+.sidebar__title {
+    font-size: 30px;
+    color: #fff;
+}
+
+.sidebar__link {
+    display: inline-block;
+    width: 200px;
+    height: 40px;
+    background: #EEEFEB;
+    font-size: 24px;
+    text-decoration: none;
+    color: #000;
+    border-radius: 6px;
+    margin: 20px 0;
+
+}

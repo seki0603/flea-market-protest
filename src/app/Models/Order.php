@@ -18,10 +18,10 @@ class Order extends Model
         'price',
         'payment_method',
         'payment_status',
-        'stripe_payment_intent_id',
         'ship_postal_code',
         'ship_address',
         'ship_building',
+        'status',
         'ordered_at',
         'paid_at'
     ];
@@ -45,5 +45,15 @@ class Order extends Model
     public function seller()
     {
         return $this->belongsTo(User::class, 'seller_id');
+    }
+
+    public function chatRoom()
+    {
+        return $this->hasOne(ChatRoom::class);
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
     }
 }
