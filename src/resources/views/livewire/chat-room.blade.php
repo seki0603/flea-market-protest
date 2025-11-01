@@ -39,7 +39,9 @@
             <p class="partner-message__text">{{ $chatMessage->message }}</p>
 
             @if ($chatMessage->image_path)
-            <img class="partner-message__image-content" src="{{ asset('storage/' . $chatMessage->image_path) }}" alt="送信画像">
+            <div class="send-image__wrapper">
+                <img class="send-image" src="{{ asset('storage/' . $chatMessage->image_path) }}" alt="送信画像">
+            </div>
             @endif
         </div>
         @else
@@ -52,11 +54,6 @@
                     alt="自分のプロフィール画像">
             </div>
             <p class="message__text">{{ $chatMessage->message }}</p>
-
-            @if ($chatMessage->image_path)
-            <img class="message__image-content" src="{{ asset('storage/' . $chatMessage->image_path) }}" alt="送信画像">
-            @endif
-
             <div class="button__wrapper">
                 <button class="update-button" wire:click.prevent="edit({{ $chatMessage->id }})">
                     <span class="span">編集</span>
@@ -65,17 +62,32 @@
                     <span class="span">削除</span>
                 </button>
             </div>
+            @if ($chatMessage->image_path)
+            <div class="send-image__wrapper">
+                <img class="send-image" src="{{ asset('storage/' . $chatMessage->image_path) }}" alt="送信画像">
+            </div>
+            @endif
         </div>
         @endif
         @endforeach
     </div>
 
     {{-- 送信フォーム --}}
-    <form wire:submit.prevent="sendMessage" class="send-form" novalidate>
-        <input wire:model.defer="newMessage" class="send-input" type="text" placeholder="取引メッセージを記入してください">
-        <button type="button" class="upload-button" wire:click="uploadImage">画像を追加</button>
-        <button type="submit" class="send-button">
-            <img class="send-button__image" src="{{ asset('images/inputbutton.jpg') }}" alt="送信ボタン">
-        </button>
+    <form wire:submit.prevent="store" class="send-form" novalidate>
+        @error('newMessage')
+        <p class="error">{{ $message }}</p>
+        @enderror
+        @error('image')
+        <p class="error">{{ $message }}</p>
+        @enderror
+        <div class="send-form__inner">
+            <input wire:model.defer="newMessage" class="send-input" type="text" placeholder="取引メッセージを記入してください">
+            <label class="file-input__label">画像を追加
+                <input wire:model.defer="image" wire:key="file-input-{{ now() }}" class="file-input" type="file">
+            </label>
+            <button class="send-button" type="submit">
+                <img class="send-button__image" src="{{ asset('images/inputbutton.jpg') }}" alt="送信ボタン">
+            </button>
+        </div>
     </form>
 </div>

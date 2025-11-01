@@ -30,7 +30,6 @@
 
 .sidebar {
     width: 20%;
-    height: 100vh;
     background: #868686;
     text-align: center;
 }
@@ -82,6 +81,7 @@
 .partner-user__name {
     font-size: 36px;
     font-weight: bold;
+    margin: 0 20px;
 }
 
 .complete-button {
@@ -126,14 +126,27 @@
 .chat-room {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+
     padding: 20px;
+    padding-bottom: 100px;
+    overflow-y: auto;
 }
 
-.partner-message,
 .message {
+    align-self: flex-end;
+    padding: 10px;
+    border-radius: 10px;
     width: 40%;
 }
+
+.partner-message {
+    align-self: flex-start;
+    padding: 10px;
+    border-radius: 10px;
+    width: 40%;
+}
+
 
 .partner-message__inner,
 .message__inner {
@@ -169,7 +182,7 @@
     font-size: 20px;
     font-weight: bold;
     line-height: 1.5;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
     border-radius: 6px;
     margin-bottom: 0;
@@ -191,12 +204,43 @@
     padding: 10px;
 }
 
-.send-form {
+.send-image__wrapper {
     width: 100%;
-    padding: 20px;
+    margin-top: 10px;
+}
+
+.send-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+    object-fit: contain;
+}
+
+
+.error {
+    color: #FF5555;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0 30px;
+}
+
+.send-form {
+    position: fixed;
+    bottom: 0;
+    width: 1140px;
+    background: #fff;
+    z-index: 100;
+}
+
+
+.send-form__inner {
+    width: 100%;
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
     align-items: center;
+    margin: 10px;
 }
 
 .send-input {
@@ -214,17 +258,22 @@
     color: #7B7B7B;
 }
 
-.upload-button {
+.file-input__label {
     width: 143px;
-    height: 44px;
     margin-left: 20px;
     background: none;
     border: 2px solid #FF5555;
     font-size: 20px;
     font-weight: bold;
     color: #FF5555;
+    text-align: center;
+    padding: 5px;
     border-radius: 10px;
-    cursor: pointer;
+    cursor: pointer
+}
+
+.file-input {
+    display: none;
 }
 
 .send-button {
