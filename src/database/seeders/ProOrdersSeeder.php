@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\ChatRoom;
-use App\Models\ChatMessage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 
@@ -60,20 +59,7 @@ class ProOrdersSeeder extends Seeder
                     'sold_at'  => now(),
                 ]);
 
-                $chatRoom = ChatRoom::create(['order_id' => $order->id]);
-
-                // チャット初期メッセージ
-                ChatMessage::create([
-                    'chat_room_id' => $chatRoom->id,
-                    'sender_id' => $buyer->id,
-                    'message' => '購入しました。よろしくお願いします！',
-                ]);
-
-                ChatMessage::create([
-                    'chat_room_id' => $chatRoom->id,
-                    'sender_id' => $product->seller_id,
-                    'message' => 'ありがとうございます。発送準備を進めます。',
-                ]);
+                ChatRoom::create(['order_id' => $order->id]);
             }
         }
     }

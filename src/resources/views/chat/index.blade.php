@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Flea Market</title>
+    @livewireStyles
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/chat.css') }}">
 </head>
@@ -21,15 +22,11 @@
 
     <main class="main">
         <div class="main__inner">
-            @include('chat.components.sidebar', ['tradingProducts' => $tradingProducts])
-
-            {{-- チャット部分 --}}
-            <div class="content">
-
-            </div>
+            @include('chat.components.sidebar', ['tradingOrders' => $tradingOrders])
+            @livewire('chat-room', ['order' => $currentOrder, 'partner' => $partner])
         </div>
     </main>
-
+    @livewireScripts
 </body>
 
 </html>
