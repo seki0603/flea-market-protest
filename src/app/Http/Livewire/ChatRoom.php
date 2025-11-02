@@ -4,7 +4,9 @@ namespace App\Http\Livewire;
 
 use App\Models\ChatMessage;
 use App\Http\Requests\ChatRequest;
+use App\Http\Requests\ChatUpdateRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -12,10 +14,11 @@ class ChatRoom extends Component
 {
     use WithFileUploads;
 
-    public $order;
-    public $partner;
+    public $order, $partner;
     public $newMessage = '';
     public $image;
+    public $updateMessage = [];
+    public $chatMessages = [];
 
     public function mount($order, $partner)
     {
@@ -51,8 +54,53 @@ class ChatRoom extends Component
         $this->order->chatRoom->load('chatMessages.sender.profile');
     }
 
+    public function update($id)
+    {
+        $validated = $this->validate(
+            (new ChatUpdateRequest())->rules(),
+            (new ChatUpdateRequest())->messages()
+        );
+
+        $message = ChatMessage::findOrFail($id);
+        $message->update([
+            'message' => $validated['updateMessage'][$id],
+        ]);
+
+        unset($this->updateMessage[$id]);
+        $this->emit('refreshChatRoom');
+        $this->emit('refreshChatRoom');
+    }
+
+    public function delete($id)
+    {
+        $deleteMessage = ChatMessage::findOrFail($id);
+
+        if ($deleteMessage->image_path) {
+            Storage::disk('public')->delete($deleteMessage->image_path);
+        }
+
+        $deleteMessage->delete();
+
+        $this->order->chatRoom->load('chatMessages.sender.profile');
+        $this->emit('refreshChatRoom');
+    }
+
     public function render()
     {
-        return view('livewire.chat-room');
+        $this->chatMessages = $this->order->chatRoom
+            ->chatMessages()
+            ->with('sender.profile')
+            ->oldest()
+            ->get();
+
+        foreach ($this->chatMessages as $msg) {
+            if (! isset($this->updateMessage[$msg->id])) {
+                $this->updateMessage[$msg->id] = $msg->message;
+            }
+        }
+
+        return view('livewire.chat-room', [
+            'chatMessages' => $this->chatMessages,
+        ]);
     }
 }

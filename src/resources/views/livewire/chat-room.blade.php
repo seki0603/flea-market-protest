@@ -22,7 +22,7 @@
 
     {{-- チャット一覧 --}}
     <div class="chat-room">
-        @foreach ($order->chatRoom->chatMessages as $chatMessage)
+        @foreach ($chatMessages as $chatMessage)
         @php
         $isMine = $chatMessage->sender_id === auth()->id();
         @endphp
@@ -46,19 +46,22 @@
         </div>
         @else
         {{-- 自分のメッセージ --}}
-        <div class="message">
+        <form wire:submit.prevent="update({{ $chatMessage->id }})" class="message" novalidate>
             <div class="message__inner">
                 <p class="message__name">{{ $chatMessage->sender->name }}</p>
                 <img class="message__image"
                     src="{{ asset('storage/' . ($chatMessage->sender->profile->avatar_path ?? 'images/default-avatar.png')) }}"
                     alt="自分のプロフィール画像">
             </div>
-            <p class="message__text">{{ $chatMessage->message }}</p>
+            @error("updateMessage.{$chatMessage->id}")
+            <p class="error">{{ $message }}</p>
+            @enderror
+            <textarea wire:model.defer="updateMessage.{{ $chatMessage->id }}" class="message__text"></textarea>
             <div class="button__wrapper">
-                <button class="update-button" wire:click.prevent="edit({{ $chatMessage->id }})">
+                <button wire:click.prevent="update({{ $chatMessage->id }})" class="update-button" type="submit">
                     <span class="span">編集</span>
                 </button>
-                <button class="delete-button" wire:click.prevent="delete({{ $chatMessage->id }})">
+                <button wire:click="delete({{ $chatMessage->id }})" class="delete-button" type="button">
                     <span class="span">削除</span>
                 </button>
             </div>
@@ -67,7 +70,7 @@
                 <img class="send-image" src="{{ asset('storage/' . $chatMessage->image_path) }}" alt="送信画像">
             </div>
             @endif
-        </div>
+        </form>
         @endif
         @endforeach
     </div>
