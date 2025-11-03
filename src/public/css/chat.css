@@ -56,6 +56,88 @@
     min-height: 100vh;
 }
 
+
+/* modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: #FDFCE6;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    border: 1px solid #000 ;
+}
+
+.modal__title {
+    font-size: 35px;
+    font-weight: 400;
+    margin: 0;
+    padding: 20px 25px;
+    border-bottom: 1px solid #000;
+}
+
+.rating__text {
+    font-size: 20px;
+    color: #868686;
+    margin: 0;
+    padding: 15px 0 0 20px;
+}
+
+.rating {
+    width: 100%;
+    border-bottom: 1px solid #000;
+}
+
+.rating__inner {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+
+.rating-input {
+    display: none;
+}
+
+.rating-label {
+    font-size: 100px;
+    color: #D9D9D9;
+    cursor: pointer;
+}
+
+.rating-input:checked ~ .rating-label {
+    color: #FFF048;
+}
+
+.modal-button__wrapper {
+    text-align: right;
+}
+
+.modal-button {
+    font-size: 24px;
+    color: #fff;
+    background: #FF8282;
+    margin: 10px;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
 /* chat-room */
 .chat-room__header {
     width: 100%;

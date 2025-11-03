@@ -19,6 +19,7 @@ class CreateChatMessagesTable extends Migration
             $table->foreignId('sender_id')->constrained('users')->onDelete('cascade');
             $table->text('message');
             $table->string('image_path')->nullable();
+            $table->enum('is_read', ['未読', '既読'])->default('未読');
             $table->timestamps();
         });
     }

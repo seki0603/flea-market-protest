@@ -24,6 +24,7 @@
         <div class="main__inner">
             @include('chat.components.sidebar', ['tradingOrders' => $tradingOrders])
             @livewire('chat-room', ['order' => $currentOrder, 'partner' => $partner])
+            @livewire('complete-trade-modal', ['order' => $currentOrder, 'partner' => $partner])
         </div>
     </main>
     @livewireScripts

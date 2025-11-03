@@ -7,7 +7,9 @@
                 alt="取引相手プロフィール画像">
             <h2 class="partner-user__name">{{ $partner->name }}さんとの取引画面</h2>
         </div>
-        <button class="complete-button">取引を完了する</button>
+        @if ($order->buyer_id === auth()->id() && $order->status !== '取引完了')
+        <button wire:click="$emit('openCompleteModal')" class="complete-button">取引を完了する</button>
+        @endif
     </div>
 
     {{-- 商品情報 --}}
@@ -20,7 +22,6 @@
         </div>
     </div>
 
-    {{-- チャット一覧 --}}
     <div class="chat-room">
         @foreach ($chatMessages as $chatMessage)
         @php

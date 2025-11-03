@@ -13,19 +13,32 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
         $tab = $request->get('tab', 'sell');
+
         $sellProducts = $user->products()->latest()->get();
-        $buyProducts = $user->buyProducts()->latest()->get();
+        $buyProducts  = $user->buyProducts()->latest()->get();
 
-        $tradingOrders = Order::where('status', '取引中')->where(function ($query) use ($user) {
-            $query->where('buyer_id', $user->id)->orWhereHas('product', function ($query) use ($user) {
-                $query->where('seller_id', $user->id);
-            });
-        })
-        ->with(['product', 'chatRoom.chatMessages'])->get()
-            ->sortByDesc(function ($order) {
-                return optional($order->chatRoom?->chatMessages->last())->created_at;
-            });
+        $tradingOrders = Order::whereIn('status', ['取引中', '取引完了待ち'])
+            ->where(function ($query) use ($user) {
+                $query->where('buyer_id', $user->id)
+                    ->orWhereHas('product', fn($query) => $query->where('seller_id', $user->id));
+            })
+            ->whereDoesntHave('ratings', function ($query) use ($user) {
+                $query->where('rater_id', $user->id);
+            })
+            ->with(['product', 'chatRoom.chatMessages'])
+            ->withCount([
+                'chatRoom as unread_count' => function ($query) use ($user) {
+                    $query->join('chat_messages', 'chat_rooms.id', '=', 'chat_messages.chat_room_id')
+                        ->where('chat_messages.sender_id', '!=', $user->id)
+                        ->where('chat_messages.is_read', '未読');
+                },
+                'chatRoom as latest_message_at' => function ($query) {
+                    $query->select(DB::raw('MAX(chat_messages.created_at)'))
+                        ->join('chat_messages', 'chat_rooms.id', '=', 'chat_messages.chat_room_id');
+                },
+            ])->orderByDesc('latest_message_at')->get();
 
+        $totalUnread = $tradingOrders->sum('unread_count');
         $tradingProducts = $tradingOrders->pluck('product');
 
         return view('mypage.index', compact(
@@ -33,9 +46,12 @@ class ProfileController extends Controller
             'sellProducts',
             'buyProducts',
             'tradingProducts',
-            'tab'
+            'tab',
+            'tradingOrders',
+            'totalUnread'
         ));
     }
+
 
     public function edit()
     {

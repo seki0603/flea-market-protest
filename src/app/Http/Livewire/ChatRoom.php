@@ -25,6 +25,11 @@ class ChatRoom extends Component
         $this->order = $order;
         $this->partner = $partner;
         $this->newMessage = session('chat_draft_' . Auth::id()) ?? '';
+
+        $this->order->chatRoom->chatMessages()
+            ->where('sender_id', '!=', Auth::id())
+            ->where('is_read', '未読')
+            ->update(['is_read' => '既読']);
     }
 
     public function updatedNewMessage($value)
@@ -52,6 +57,7 @@ class ChatRoom extends Component
         session()->forget('chat_draft_' . Auth::id());
 
         $this->order->chatRoom->load('chatMessages.sender.profile');
+        $this->emit('refreshChatRoom');
     }
 
     public function update($id)
@@ -67,7 +73,6 @@ class ChatRoom extends Component
         ]);
 
         unset($this->updateMessage[$id]);
-        $this->emit('refreshChatRoom');
         $this->emit('refreshChatRoom');
     }
 

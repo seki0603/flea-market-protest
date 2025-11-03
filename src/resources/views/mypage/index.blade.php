@@ -24,7 +24,11 @@
     <div class="tab">
         <a class="tab__link {{ $tab === 'sell' ? 'tab__link--active' : '' }}" href="?tab=sell">出品した商品</a>
         <a class="tab__link {{ $tab === 'buy' ? 'tab__link--active' : '' }}" href="?tab=buy">購入した商品</a>
-        <a class="tab__link {{ $tab === 'trading' ? 'tab__link--active' : '' }}" href="?tab=trading">取引中の商品</a>
+        <a class="tab__link {{ $tab === 'trading' ? 'tab__link--active' : '' }}" href="?tab=trading">取引中の商品
+        </a>
+        @if ($totalUnread > 0)
+        <span class="tab__badge">{{ $totalUnread }}</span>
+        @endif
     </div>
 </div>
 
@@ -62,12 +66,17 @@
 
 @if ($tab === 'trading')
 <div class="products">
-    @foreach($tradingProducts as $product)
+    @foreach ($tradingOrders as $order)
     <div class="product">
-        <a href="{{ route('chat.index', $product->order->chatRoom->id ?? '#') }}">
-            <img class="product__img" src="{{ \Illuminate\Support\Str::startsWith($product->image_path, 'http') ? $product->image_path : asset('storage/'.$product->image_path) }}" alt="商品画像">
+        <a href="{{ route('chat.index', $order->chatRoom->id ?? '#') }}">
+            <img class="product__img" src="{{ \Illuminate\Support\Str::startsWith($order->product->image_path, 'http')
+                        ? $order->product->image_path
+                        : asset('storage/'.$order->product->image_path) }}" alt="商品画像">
         </a>
-        <p class="product__name">{{ $product->name }}</p>
+        @if ($order->unread_count > 0)
+        <span class="badge">{{ $order->unread_count }}</span>
+        @endif
+        <p class="product__name">{{ $order->product->name }}</p>
     </div>
     @endforeach
 </div>
