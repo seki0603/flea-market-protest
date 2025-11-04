@@ -28,20 +28,41 @@
     display: block;
 }
 
+.profile__info {
+    text-align: center;
+    margin-left: 30px;
+}
+
 .profile__name {
     font-size: 36px;
     font-weight: bold;
-    margin-left: 80px;
+    margin-bottom: 0;
+}
+
+.profile__rating {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+}
+
+.profile__star {
+    display: block;
+    font-size: 50px;
+    color: #D9D9D9;
+}
+
+.profile__star.filled {
+    color: #FFF048;
 }
 
 .profile__button {
     width: 310px;
-    border: 2px solid #FF5555;
+    border: 2px solid #ff5555;
     border-radius: 10px;
     text-align: center;
     font-size: 26px;
     text-decoration: none;
-    color: #FF5555;
+    color: #ff5555;
     font-weight: bold;
     padding: 10px;
 }
@@ -51,7 +72,7 @@
     margin: 0 auto;
     font-size: 20px;
     font-weight: bold;
-    color: #0073CC;
+    color: #0073cc;
 }
 
 .tab__wrapper {
@@ -80,7 +101,7 @@
     font-size: 24px;
     font-weight: bold;
     color: #fff;
-    background: #FF0000;
+    background: #ff0000;
     padding: 0 10px;
     border-radius: 40%;
 }
@@ -146,14 +167,13 @@
     font-size: 10px;
     font-weight: bold;
     color: #fff;
-    background: #FF0000;
+    background: #ff0000;
     border-radius: 50%;
     text-align: center;
     padding: 5px 9px;
 }
 
-
-@media (max-width: 850px) {
+@media screen and (max-width: 850px) {
     .mypage {
         padding: 0 20px;
     }
@@ -168,6 +188,8 @@
     .profile__inner {
         width: 100%;
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     .profile__img {
@@ -175,9 +197,13 @@
         height: 120px;
     }
 
+    .profile__info {
+    text-align: center;
+    margin: 0 auto;
+}
+
     .profile__name {
         font-size: 28px;
-        margin: 20px 0 0;
     }
 
     .profile__button {
@@ -188,6 +214,7 @@
 
     .tab {
         padding: 0 20px;
+        text-align: center;
     }
 
     .tab__link {
@@ -209,11 +236,6 @@
     .product {
         flex: 1 1 calc(45% - 20px);
         max-width: 320px;
-    }
-
-    .product__img-wrapper,
-    .product__img {
-        height: 240px;
     }
 
     .product__name {

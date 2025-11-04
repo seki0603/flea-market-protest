@@ -121,7 +121,7 @@
 }
 
 
-@media (max-width: 850px) {
+@media screen and (max-width: 850px) {
     .header__inner {
         flex-wrap: wrap;
         height: auto;
@@ -130,8 +130,8 @@
     }
 
     .header__logo {
-        width: 200px;
-        margin-bottom: 10px;
+        width: 210px;
+        margin-bottom: 20px;
     }
 
     .header__form {
@@ -157,6 +157,7 @@
         width: 100%;
         justify-content: center;
         flex-wrap: wrap;
+        margin-top: 10px;
         gap: 10px;
     }
 

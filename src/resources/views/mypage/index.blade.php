@@ -10,7 +10,18 @@
     <div class="mypage__profile">
         <div class="profile__inner">
             <img class="profile__img" src="{{ asset('storage/' . $user->profile->avatar_path) }}" alt="">
-            <p class="profile__name">{{ $user->name }}</p>
+            <div class="profile__info">
+                <p class="profile__name">{{ $user->name }}</p>
+                @if ($user->profile->average_rating)
+                @php
+                $roundedRating = round($user->profile->average_rating);
+                @endphp
+                <div class="profile__rating">
+                    @for ($index = 1; $index <= 5; $index++) <span class="profile__star {{ $index <= $roundedRating ? 'filled' : '' }}">★</span>
+                        @endfor
+                </div>
+                @endif
+            </div>
         </div>
         <a class="profile__button" href="{{ route('profile.edit') }}">プロフィールを編集</a>
     </div>

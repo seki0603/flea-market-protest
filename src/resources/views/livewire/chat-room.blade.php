@@ -37,7 +37,7 @@
                     alt="取引相手プロフィール画像">
                 <p class="partner-message__name">{{ $chatMessage->sender->name }}</p>
             </div>
-            <p class="partner-message__text">{{ $chatMessage->message }}</p>
+            <p class="bubble">{{ $chatMessage->message }}</p>
 
             @if ($chatMessage->image_path)
             <div class="send-image__wrapper">
@@ -47,31 +47,40 @@
         </div>
         @else
         {{-- 自分のメッセージ --}}
-        <form wire:submit.prevent="update({{ $chatMessage->id }})" class="message" novalidate>
+        <div class="message">
             <div class="message__inner">
                 <p class="message__name">{{ $chatMessage->sender->name }}</p>
-                <img class="message__image"
-                    src="{{ asset('storage/' . ($chatMessage->sender->profile->avatar_path ?? 'images/default-avatar.png')) }}"
-                    alt="自分のプロフィール画像">
+                <img class="message__image" src="{{ asset('storage/' . ($chatMessage->sender->profile->avatar_path ?? 'images/default-avatar.png')) }}" alt="自分のプロフィール画像">
             </div>
-            @error("updateMessage.{$chatMessage->id}")
-            <p class="error">{{ $message }}</p>
+
+            {{-- 更新用 --}}
+            @if ($editingId === $chatMessage->id)
+            @error("updateMessage.{$chatMessage->id}") <p class="error">{{ $message }}</p>
             @enderror
-            <textarea wire:model.defer="updateMessage.{{ $chatMessage->id }}" class="message__text"></textarea>
+            <form wire:submit.prevent="update({{ $chatMessage->id }})" novalidate>
+                <textarea wire:model.defer="updateMessage.{{ $chatMessage->id }}" class="edit-textarea" rows="3"
+                    maxlength="400"></textarea>
+                <div class="button__wrapper">
+                    <button class="update-button" type="submit"><span class="span">保存</span></button>
+                    <button class="delete-button" type="button" wire:click="cancelEdit"><span class="span">キャンセル</span></button>
+                </div>
+            </form>
+            @else
+            {{-- 表示用 --}}
+            <p class="bubble bubble--mine">{{ $chatMessage->message }}</p>
             <div class="button__wrapper">
-                <button wire:click.prevent="update({{ $chatMessage->id }})" class="update-button" type="submit">
-                    <span class="span">編集</span>
-                </button>
-                <button wire:click="delete({{ $chatMessage->id }})" class="delete-button" type="button">
-                    <span class="span">削除</span>
-                </button>
+                <button class="update-button" type="button" wire:click="startEdit({{ $chatMessage->id }})"><span
+                        class="span">編集</span></button>
+                <button class="delete-button" type="button" wire:click="delete({{ $chatMessage->id }})"><span
+                        class="span">削除</span></button>
             </div>
+            @endif
             @if ($chatMessage->image_path)
             <div class="send-image__wrapper">
                 <img class="send-image" src="{{ asset('storage/' . $chatMessage->image_path) }}" alt="送信画像">
             </div>
             @endif
-        </form>
+        </div>
         @endif
         @endforeach
     </div>

@@ -17,8 +17,10 @@ class ChatRoom extends Component
     public $order, $partner;
     public $newMessage = '';
     public $image;
-    public $updateMessage = [];
     public $chatMessages = [];
+    public $editingId = null;
+    public $editingMessageText = '';
+    public $updateMessage = [];
 
     public function mount($order, $partner)
     {
@@ -60,6 +62,13 @@ class ChatRoom extends Component
         $this->emit('refreshChatRoom');
     }
 
+    public function startEdit($id)
+    {
+        $message = ChatMessage::findOrFail($id);
+        $this->editingId = $id;
+        $this->editingMessageText = $message->message;
+    }
+
     public function update($id)
     {
         $validated = $this->validate(
@@ -67,13 +76,22 @@ class ChatRoom extends Component
             (new ChatUpdateRequest())->messages()
         );
 
-        $message = ChatMessage::findOrFail($id);
+        $message = ChatMessage::findOrFail($this->editingId);
         $message->update([
             'message' => $validated['updateMessage'][$id],
         ]);
 
+        $this->editingId = null;
+        $this->editingMessageText = '';
+
         unset($this->updateMessage[$id]);
         $this->emit('refreshChatRoom');
+    }
+
+    public function cancelEdit()
+    {
+        $this->editingId = null;
+        $this->editingMessageText = '';
     }
 
     public function delete($id)
@@ -98,9 +116,9 @@ class ChatRoom extends Component
             ->oldest()
             ->get();
 
-        foreach ($this->chatMessages as $msg) {
-            if (! isset($this->updateMessage[$msg->id])) {
-                $this->updateMessage[$msg->id] = $msg->message;
+        foreach ($this->chatMessages as $chatMessage) {
+            if (! isset($this->updateMessage[$chatMessage->id])) {
+                $this->updateMessage[$chatMessage->id] = $chatMessage->message;
             }
         }
 

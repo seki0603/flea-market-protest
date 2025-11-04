@@ -92,7 +92,7 @@ class CompleteTradeModal extends Component
         $this->isOpen = false;
         $this->hasRated = true;
 
-        return redirect()->route('items.index');
+        return redirect()->route('items.index')->with('message', 'ユーザー評価が完了しました');
     }
 
     public function render()

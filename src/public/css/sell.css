@@ -74,7 +74,6 @@
     display: inline-block;
 }
 
-
 .error {
     font-size: 20px;
     font-weight: bold;
@@ -147,7 +146,7 @@
     right: 15px;
     width: 18px;
     height: 20px;
-    color: #5F5F5F;
+    color: #5f5f5f;
     transform: translate(0, -50%);
 }
 
@@ -206,18 +205,20 @@
     display: flex;
 }
 
-
-.form__name-title, .form__brand-title,
-.form__description-title, .form__price-title {
+.form__name-title,
+.form__brand-title,
+.form__description-title,
+.form__price-title {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 0;
 }
 
-.form__name, .form__brand,
+.form__name,
+.form__brand,
 .form__description {
     width: 100%;
-    border: 1px solid #5F5F5F;
+    border: 1px solid #5f5f5f;
     border-radius: 6px;
     font-size: 20px;
     padding: 10px;
@@ -250,7 +251,7 @@
 .form__price-content {
     display: flex;
     align-items: center;
-    border: 1px solid #5F5F5F;
+    border: 1px solid #5f5f5f;
     border-radius: 6px;
     height: 45px;
     width: 100%;
@@ -274,11 +275,84 @@
 .form__button {
     width: 100%;
     height: 60px;
-    background: #FF5555;
+    background: #ff5555;
     color: #fff;
     font-size: 26px;
     font-weight: bold;
     border: none;
     border-radius: 6px;
     cursor: pointer;
+}
+
+@media screen and (max-width: 850px) {
+    .form__title {
+        font-size: 26px;
+    }
+
+    .form__image-title {
+        font-size: 18px;
+    }
+
+    .form__image {
+        height: 120px;
+    }
+
+    .form__image-button,
+    .form__reset-button {
+        font-size: 14px;
+        width: 140px;
+        padding: 8px;
+    }
+
+    .form__category-label {
+        cursor: pointer;
+        margin: 10px;
+    }
+
+    .form__category-name {
+        font-size: 12px;
+    }
+
+    .form__section-title {
+        font-size: 22px;
+    }
+
+    .form__category-title,
+    .form__condition-title,
+    .form__name-title,
+    .form__brand-title,
+    .form__description-title,
+    .form__price-title {
+        font-size: 18px;
+    }
+
+    .form__name,
+    .form__brand,
+    .form__description {
+        font-size: 16px;
+        padding: 8px;
+    }
+
+    .form__price-wrapper {
+        margin-bottom: 60px;
+    }
+
+    .form__price-symbol {
+        font-size: 18px;
+    }
+
+    .form__price {
+        font-size: 16px;
+    }
+
+    .form__button {
+        height: 50px;
+        font-size: 20px;
+        margin-top: 20px;
+    }
+
+    .error {
+        font-size: 16px;
+        text-align: center;
+    }
 }

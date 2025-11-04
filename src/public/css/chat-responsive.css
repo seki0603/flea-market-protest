@@ -1,0 +1,197 @@
+@media screen and (max-width: 850px) {
+
+    .header__inner {
+        height: 60px;
+        padding: 0 10px;
+    }
+
+    .header__logo {
+        width: 240px;
+        height: auto;
+    }
+
+    .main__inner {
+        flex-direction: column;
+    }
+
+    /* サイドバー */
+    .sidebar {
+        width: 100%;
+        padding: 10px 0 20px;
+    }
+
+    .sidebar__title {
+        font-size: 22px;
+    }
+
+    .sidebar__link {
+        width: 80%;
+        font-size: 18px;
+        height: auto;
+        line-height: 1.5;
+        margin: 10px 0;
+    }
+
+    .content {
+        width: 100%;
+        min-height: auto;
+    }
+
+    /* モーダル */
+    .modal {
+        width: 95%;
+        max-width: 480px;
+    }
+
+    .modal__title {
+        font-size: 26px;
+        padding: 16px;
+    }
+
+    .rating__text {
+        font-size: 16px;
+        padding: 10px 0 0 16px;
+    }
+
+    .rating-label {
+        font-size: 60px;
+    }
+
+    .modal-button {
+        font-size: 18px;
+        padding: 4px 12px;
+    }
+
+    /* チャットルーム */
+    .chat-room__header {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
+
+    .partner-user__wrapper {
+        margin: 10px 0;
+    }
+
+    .partner-user__image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .partner-user__name {
+        font-size: 22px;
+        margin: 0 10px;
+    }
+
+    .complete-button {
+        width: 140px;
+        height: 46px;
+        font-size: 16px;
+        margin: 10px 0;
+    }
+
+    .product__wrapper {
+        flex-direction: column;
+        height: auto;
+        padding: 15px 0;
+        text-align: center;
+    }
+
+    .product__image {
+        width: 150px;
+        height: 150px;
+        margin: 10px auto;
+    }
+
+    .product__name {
+        font-size: 28px;
+        margin: 10px auto;
+    }
+
+    .product__price {
+        font-size: 22px;
+        margin: 0;
+    }
+
+    /* チャット表示欄 */
+    .chat-room {
+        padding: 10px;
+        padding-bottom: 80px;
+    }
+
+    .message,
+    .partner-message {
+        width: 50%;
+    }
+
+    .message__inner {
+        margin: 0 0 0 auto;
+    }
+
+    .partner-message__image,
+    .message__image {
+        width: 50px;
+        height: 50px;
+    }
+
+    .partner-message__name,
+    .message__name {
+        font-size: 16px;
+    }
+
+    .bubble {
+        font-size: 16px;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .edit-textarea {
+        font-size: 16px;
+    }
+
+    .button__wrapper {
+        text-align: right;
+    }
+
+    .update-button,
+    .delete-button {
+        font-size: 14px;
+        padding: 6px;
+    }
+
+    .send-image {
+        width: 100%;
+        max-height: 300px;
+        object-fit: contain;
+    }
+
+    .error {
+        font-size: 16px;
+        padding: 0 16px;
+    }
+
+    /* チャット送信フォーム */
+    .send-form {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: #fff;
+    }
+
+    .send-input {
+        width: 70%;
+        font-size: 16px;
+    }
+
+    .file-input__label {
+        width: 20%;
+        margin-left: 0;
+        font-size: 16px;
+        padding: 6px;
+    }
+
+    .send-button {
+        width: 60px;
+        height: 45px;
+    }
+}

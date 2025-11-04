@@ -57,3 +57,32 @@
     height: 1px;
     overflow: hidden;
 }
+
+
+@media screen and (max-width: 850px) {
+    .header__logo {
+        width: 210px;
+    }
+
+    .content {
+        max-width: 768px;
+        margin: 40px auto;
+        padding: 0 20px;
+        text-align: center;
+    }
+
+    .content__text {
+        font-size: 18px;
+    }
+
+    .content__button {
+        height: 50px;
+        font-size: 20px;
+        margin-top: 30px;
+        margin-bottom: 10px;
+    }
+
+    .content__send {
+        font-size: 18px;
+    }
+}

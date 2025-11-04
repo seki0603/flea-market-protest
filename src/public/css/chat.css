@@ -28,6 +28,7 @@
     background-color: #fff;
 }
 
+/* サイドバー */
 .sidebar {
     width: 20%;
     background: #868686;
@@ -43,7 +44,7 @@
     display: inline-block;
     width: 200px;
     height: 40px;
-    background: #EEEFEB;
+    background: #eeefeb;
     font-size: 24px;
     text-decoration: none;
     color: #000;
@@ -56,8 +57,7 @@
     min-height: 100vh;
 }
 
-
-/* modal */
+/* モーダル */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -72,11 +72,11 @@
 }
 
 .modal {
-    background: #FDFCE6;
+    background: #fdfce6;
     border-radius: 10px;
     width: 90%;
     max-width: 600px;
-    border: 1px solid #000 ;
+    border: 1px solid #000;
 }
 
 .modal__title {
@@ -114,12 +114,12 @@
 
 .rating-label {
     font-size: 100px;
-    color: #D9D9D9;
+    color: #d9d9d9;
     cursor: pointer;
 }
 
 .rating-input:checked ~ .rating-label {
-    color: #FFF048;
+    color: #fff048;
 }
 
 .modal-button__wrapper {
@@ -129,7 +129,7 @@
 .modal-button {
     font-size: 24px;
     color: #fff;
-    background: #FF8282;
+    background: #ff8282;
     margin: 10px;
     padding: 5px 15px;
     border: none;
@@ -137,15 +137,14 @@
     cursor: pointer;
 }
 
-
-/* chat-room */
+/* チャットルーム */
 .chat-room__header {
     width: 100%;
     height: 110px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #5F5F5F;
+    border-bottom: 2px solid #5f5f5f;
 }
 
 .partner-user__wrapper {
@@ -157,7 +156,7 @@
 .partner-user__image {
     width: 80px;
     height: 80px;
-    background: #D9D9D9;
+    background: #d9d9d9;
     border-radius: 50%;
 }
 
@@ -170,7 +169,7 @@
 .complete-button {
     width: 175px;
     height: 54px;
-    background: #FF8282;
+    background: #ff8282;
     color: #fff;
     font-size: 20px;
     font-weight: bold;
@@ -186,13 +185,13 @@
     display: flex;
     justify-content: left;
     align-items: center;
-    border-bottom: 2px solid #5F5F5F;
+    border-bottom: 2px solid #5f5f5f;
 }
 
 .product__image {
     width: 205px;
     height: 205px;
-    background: #D9D9D9;
+    background: #d9d9d9;
     margin: 0 30px;
 }
 
@@ -206,6 +205,7 @@
     font-weight: 400;
 }
 
+/* チャット表示欄 */
 .chat-room {
     width: 100%;
     display: flex;
@@ -229,7 +229,6 @@
     width: 40%;
 }
 
-
 .partner-message__inner,
 .message__inner {
     width: 40%;
@@ -239,15 +238,11 @@
     align-items: center;
 }
 
-.message__inner {
-    margin: 0 0 0 auto;
-}
-
 .partner-message__image,
 .message__image {
     width: 60px;
     height: 60px;
-    background: #D9D9D9;
+    background: #d9d9d9;
     border-radius: 50%;
 }
 
@@ -257,33 +252,37 @@
     font-weight: bold;
 }
 
-.partner-message__text {
+.bubble {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    background: #D9D9D9;
+    min-height: 60px;
+    background: #d9d9d9;
     font-size: 20px;
     font-weight: bold;
     line-height: 1.5;
     padding: 10px;
     text-align: center;
     border-radius: 6px;
-    margin-bottom: 0;
+    margin: 10px 0;
+    white-space: pre-wrap;
 }
 
-.message__text {
+.edit-textarea {
     width: 100%;
-    height: 50px;
-    overflow-y: auto;
-    resize: none;
+    min-height: 120px;
     font-size: 20px;
     font-weight: bold;
     line-height: 1.5;
-    text-align: center;
-    background: #D9D9D9;
-    padding: 10px;
+    background: #d9d9d9;
     border: none;
     outline: none;
     border-radius: 6px;
-    margin-top: 20px;
+    padding: 10px 12px;
+    resize: vertical;
+    overflow: auto;
+    white-space: pre-wrap;
 }
 
 .button__wrapper {
@@ -296,7 +295,7 @@
 .update-button,
 .delete-button {
     font-size: 15px;
-    color: #5F5F5F;
+    color: #5f5f5f;
     background: none;
     border: none;
     padding: 10px;
@@ -306,7 +305,6 @@
 .delete-button .span {
     text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
-
 
 .send-image__wrapper {
     width: 100%;
@@ -321,15 +319,15 @@
     object-fit: contain;
 }
 
-
 .error {
-    color: #FF5555;
+    color: #ff5555;
     font-size: 20px;
     font-weight: bold;
     margin: 0;
     padding: 0 30px;
 }
 
+/* チャット送信フォーム */
 .send-form {
     position: fixed;
     bottom: 0;
@@ -348,7 +346,7 @@
 .send-input {
     width: 80%;
     height: 44px;
-    border: 1px solid #5F5F5F;
+    border: 1px solid #5f5f5f;
     border-radius: 6px;
     padding: 10px 15px;
     font-size: 20px;
@@ -357,21 +355,21 @@
 .send-input::placeholder {
     font-size: 20px;
     font-weight: bold;
-    color: #7B7B7B;
+    color: #7b7b7b;
 }
 
 .file-input__label {
     width: 143px;
     margin-left: 20px;
     background: none;
-    border: 2px solid #FF5555;
+    border: 2px solid #ff5555;
     font-size: 20px;
     font-weight: bold;
-    color: #FF5555;
+    color: #ff5555;
     text-align: center;
     padding: 5px;
     border-radius: 10px;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .file-input {
