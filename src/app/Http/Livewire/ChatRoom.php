@@ -65,6 +65,9 @@ class ChatRoom extends Component
     public function startEdit($id)
     {
         $message = ChatMessage::findOrFail($id);
+
+        $this->updateMessage[$id] = $message->message;
+
         $this->editingId = $id;
         $this->editingMessageText = $message->message;
     }

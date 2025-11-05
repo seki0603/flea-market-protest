@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\ChatRoom;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\PurchaseRequest;
 use Illuminate\Support\Facades\Auth;
@@ -47,7 +48,7 @@ class PurchaseController extends Controller
         }
 
         DB::transaction(function () use ($request, $product) {
-            Order::create([
+            $order = Order::create([
                 'product_id' => $product->id,
                 'buyer_id' => Auth::id(),
                 'seller_id' => $product->seller_id,
@@ -58,6 +59,10 @@ class PurchaseController extends Controller
                 'ship_address' => $request->ship_address,
                 'ship_building' => $request->ship_building,
                 'ordered_at' => now(),
+            ]);
+
+            ChatRoom::create([
+                'order_id' => $order->id,
             ]);
 
             $product->update([
