@@ -1,12 +1,14 @@
 # フリマアプリ
 
+本アプリケーションは、COACHTECH 模擬案件「フリマアプリ」に追加機能を実装した Laravel アプリケーションです。
+
 ## 環境構築
 
 ### Docker ビルド
 
-1. Dockerを起動する
-2. `git clone git@github.com:seki0603/flea-market.git`
-3. cd flea-market
+1. Docker を起動する
+2. `git clone git@github.com:seki0603/flea-market-protest.git`
+3. cd flea-market-protest
 4. mkdir docker/mysql/data
 5. docker-compose up -d --build
 
@@ -24,87 +26,54 @@
 7. chmod -R 777 storage bootstrap/cache
 8. php artisan db:seed
 
-* .env.exampleの値はダミー値です。そのまま利用可能ですが、必要に応じて.envで設定し直してください。
-   <br>
-
-## Stripe 接続
-
-.env 及び.env.testing に Stripe テストキーを記載してください。  
-実際のテストキーは案件シートの基本設計書ページ最下部に記載しています。  
-案件シートへは README 最下部記載の URL からアクセス可能です。
-
-```
-公開キー（STRIPE_KEY）: pk_test_xxxxx...
-シークレットキー（STRIPE_SECRET）: sk_test_xxxxx...
-```
-
-<br>
-
-## メール認証機能について
-
-MailHog にて実装しています。  
-.env.exampleにて必要項目を設定しているため、Docker起動後はhttp://localhost:8025 にて受信確認可能です。
-<br>
+- .env.example の値はダミー値です。そのまま利用可能ですが、必要に応じて.env で設定し直してください。
+  <br>
 
 ## 動作確認について
-ダミーデータにてユーザー3名が作成されます。
+
+デフォルトでは下記の通りダミーデータが投入されます。
+
+- ユーザー 3 名
+- 各ユーザーのプロフィール情報（初期状態では評価なし）
+- 要件にて指定の商品 10 点
+  - ユーザー 1：商品 ID 1~5 を出品
+  - ユーザ 2：商品 ID 6~10 を出品
+  - ユーザ 1：ユーザー 2 の出品から 2 点購入
+  - ユーザー 2：ユーザー 1 の出品から 2 点購入
+  * ユーザー 3：未取引
+    <br><br>
+
+そのため、今回追加した機能から動作確認が可能です。  
 ログイン情報は下記の通りです。
+
 ```
 Email: test{$index}@example.com
 Password: password123
 ※{$index}には1 ~ 3の数字が入ります。
 ```
-## 使用技術
-
-- PHP 8.1.3
-- Laravel 8.83.29
-- MySQL 8.0.26
-- nginx 1.21.1
-  <br>
-
-## テスト実行方法
-プロジェクトディレクトリ直下で実行してください。
-
-1. docker-compose exec mysql bash
-2. mysql -u root -p
-3. パスワードはrootと入力
-4. CREATE DATABASE laravel_test;
-5. MySQL コンテナから抜ける
-6. docker-compose exec php bash
-7. php artisan key:generate --env=testing
-8. vendor/bin/phpunit
-   <br>
-
-## ER 図
-
-![ER図](docs/ER.drawio.png)
-
-## 補足事項
-### ダミーデータについて
-
-本アプリケーションでは、案件シートで指定された商品データを基準に Seeder を作成しています。
-出品者・購入者・コメント・いいね等の関連データは、UIおよび機能確認を容易にするために一部自動生成で補完しています。
-これにより、要件上の「商品情報」「カテゴリ情報」「ユーザー情報」を再現しつつ、実際の運用に近いデータ構成を確認できます。
-
-※ 確認用の水増しデータを投入したい場合は、DatabaseSeeder.php 内の DummyProductsSeeder::class のコメントアウトを外してください。
 
 <br>
 
+要件指定のダミーデータのみで、購入機能から確認される場合は、DatabaseSeeder.php の`ProOrdersSeeder::class`をコメントアウトしてからシーディングを実行し、.env に Stripe 接続キーを設定してください。
+<br>
 
-### 検索機能について
+## Stripe(決済機能)について
 
-案件シート上では検索ボタン押下操作が指定されていた一方、Figma では入力欄のみがデザインされていました。
-そのため、要件意図を優先して検索ボタンを実装しています。
-リセットボタンの指定はなかったため未実装ですが、検索欄を空にした状態で再検索することで一覧をリセットできる仕様としています。
+模擬案件実装時、 Stripe のサンドボックス環境を利用して決済機能を導入しています。
+必要に応じて.env テスト用接続キーを設定してください。
+
+```
+STRIPE_PUBLIC_KEY="パブリックキー"
+STRIPE_SECRET_KEY="シークレットキー"
+```
 
 <br>
 
-### Stripe(決済機能)について
+以下のリンクは公式ドキュメントです。  
+https://docs.stripe.com/payments/checkout?locale=ja-JP
 
-模擬案件要件に沿って Stripe のサンドボックス環境を利用しています。
-実際の決済は行われず、支払い操作完了後は一覧画面にて Sold 表示とフラッシュメッセージで購入完了を確認できます。
+カード支払いでは Stripe テスト用カード情報を利用可能です。
 
-* カード支払いでは Stripe テスト用カード情報を利用可能です。
 ```
 カード番号 : 4242 4242 4242 4242
 有効期限 : 未来の月/年　（例: 12/30）
@@ -113,20 +82,71 @@ CVC : 任意の3桁の数字　（例: 123）
 
 <br>
 
-- コンビニ支払いは Stripe の仕様に従い、登録後に支払い画面に遷移せず、一覧画面にて反映を確認できます。F
+## 取引完了通知メールについて
+
+MailHog を使用して実装しています。
+取引完了後、 以下の URL にて受信確認可能です。
+
+- MailHog : http://localhost:8025/
+
+## 使用技術
+
+- PHP 8.1.3
+- Laravel 8.83.29
+- MySQL 8.0.26
+- nginx 1.21.1
+  <br>
+
+## ER 図
+
+![ER図](docs/ER-protest.drawio.png)
+
+## 補足事項
+
+### ヘッダー部検索欄について
+
+模擬案件実装時、案件シート上では検索ボタン押下操作が指定されていた一方、Figma では入力欄のみがデザインされていました。
+そのため、要件意図を優先して検索ボタンを実装しています。
 
 <br>
 
-### メール認証機能について
+### チャット・ユーザー評価・通知メール機能について
 
-MailHog を使用して実装しています。
-案件シートでは「認証誘導画面 → 認証画面」の遷移が指定されていましたが、
-Figma で認証画面のデザイン指定がなかったため、参考UIの意図に沿って自作デザインを補完しています。
-また、メール認証が完了している場合は、認証誘導画面をスキップしてプロフィール設定画面へ自動遷移する仕様としています。
+JavaScript 非依存による、可読性・保守性・生産性の向上を目的として、Laravel Livewire を用いて実装しています。
+
+<br>
+
+### 送信済みチャット更新機能について
+
+案件シート上でユーザーの動作指定が無く、Figma のデザイン上も「編集」ボタンのみ表示されていたことから、以下の動作で更新できるよう実装しています。
+
+1. 「編集」ボタン押下
+2. 送信済みチャット編集
+3. 「保存」ボタン押下
+   <br>
+
+### テストについて
+
+案件シートにてテストケース指定が無かったため、追加実装は行っていません。
+既存機能については引き続きテスト実行可能です。
+
+#### テスト実行方法
+
+.env.testing に Stripe 接続キーを設定し、プロジェクトディレクトリ直下で実行してください。
+
+1. docker-compose exec mysql bash
+2. mysql -u root -p
+3. パスワードは root と入力
+4. CREATE DATABASE laravel_test;
+5. MySQL コンテナから抜ける
+6. docker-compose exec php bash
+7. php artisan migrate --env=testing
+8. vendor/bin/phpunit
+   <br>
 
 ## URL
 
 - 開発環境：http://localhost/
 - phpMyAdmin：http://localhost:8080/
 - MailHog : http://localhost:8025/
-- 案件シート : https://docs.google.com/spreadsheets/d/1zicFKHZg867c-sDSzqEwH6PBJuir5okUgYe7ncBSdtM/edit?gid=1113232830#gid=1113232830
+- 案件シート : https://docs.google.com/spreadsheets/d/1AFiW_FhK4WJRihzImjOC8EX3l_x-bAOl7pME1whRZEk/edit?gid=2095977984#gid=2095977984
