@@ -336,6 +336,7 @@
     position: fixed;
     bottom: 0;
     width: 1140px;
+    background: #fff;
     z-index: 100;
 }
 
