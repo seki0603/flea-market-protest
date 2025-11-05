@@ -58,8 +58,7 @@
             @error("updateMessage.{$chatMessage->id}") <p class="error">{{ $message }}</p>
             @enderror
             <form wire:submit.prevent="update({{ $chatMessage->id }})" novalidate>
-                <textarea wire:model.defer="updateMessage.{{ $chatMessage->id }}" class="edit-textarea" rows="3"
-                    maxlength="400"></textarea>
+                <textarea wire:model.defer="updateMessage.{{ $chatMessage->id }}" class="edit-textarea" rows="3"></textarea>
                 <div class="button__wrapper">
                     <button class="update-button" type="submit"><span class="span">保存</span></button>
                     <button class="delete-button" type="button" wire:click="cancelEdit"><span class="span">キャンセル</span></button>
@@ -94,7 +93,7 @@
         <p class="error">{{ $message }}</p>
         @enderror
         <div class="send-form__inner">
-            <input wire:model.defer="newMessage" class="send-input" type="text" placeholder="取引メッセージを記入してください">
+            <input wire:model="newMessage" class="send-input" type="text" placeholder="取引メッセージを記入してください">
             <label class="file-input__label">画像を追加
                 <input wire:model.defer="image" wire:key="file-input-{{ now() }}" class="file-input" type="file">
             </label>
