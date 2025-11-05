@@ -63,8 +63,8 @@ Password: password123
 必要に応じて.env テスト用接続キーを設定してください。
 
 ```
-STRIPE_PUBLIC_KEY="パブリックキー"
-STRIPE_SECRET_KEY="シークレットキー"
+STRIPE_KEY="パブリックキー"
+STRIPE_SECRET="シークレットキー"
 ```
 
 <br>
